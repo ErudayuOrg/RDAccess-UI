@@ -1,0 +1,29 @@
+.nav-item .nav-link { 
+    color: #ffcc29; 
+} 
+.dropdown-menu
+{
+	border:none;
+	display: block;
+	height: 0px;
+	overflow: hidden;
+	padding: 0px;
+    top: 60px;
+    background-color: #fdfdfd;
+    transition: all 350ms;
+}
+.dropdown:hover .dropdown-menu
+{
+	display: block;
+    height: inherit;
+    top: 38px;
+}
+
+.dropdown-item{
+    padding: 15px;
+    border-bottom: 1px #ececec solid;
+}
+.dropdown-item:hover{
+    background-color: #aaaaaa;
+    color:#ffffff
+}

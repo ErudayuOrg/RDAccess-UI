@@ -1,0 +1,12 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink = "/home">Home</a></li>
+        <li class="breadcrumb-item" ><a routerLink = "/department/{{department.id}}">{{department.name}}</a></li>
+        <li class="breadcrumb-item active" >{{research.name}}</li>
+    </ol>
+</nav>
+
+<div class="container"> 
+    <div class="title">{{research.name}}</div>
+    Project cards section below
+</div>

@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-md navbar-light navbar-custom justify-content-between">
+  <a class="navbar-brand" routerLink="/">R&D Portal </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navItems" aria-controls="navItems" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse" id="navItems">  
+      <ul class="navbar-nav ml-auto">
+          <app-department-list></app-department-list> 
+          <li class="nav-item">
+              <a class="nav-link pr-5" routerLink="/home">Home </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link pr-3" routerLink="/user">My profile </a>
+          </li>
+      </ul>
+  </div>
+</nav>
