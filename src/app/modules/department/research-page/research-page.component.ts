@@ -1,21 +1,42 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { RD,DEPARTMENTS } from './../../../keys/constant';
+import { ApiClientService } from './../../../service/api-client.service';
 
 @Component({
   selector: 'app-research-page',
   templateUrl: './research-page.component.html',
-  styleUrls: ['./research-page.component.css']
+  styleUrls: ['./research-page.component.css'],
 })
-export class ResearchPageComponent{
-  research:any;
-  department:any;
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.params.subscribe(params =>{
-      this.research = RD[params.id].filter( research => research.id === params.researchId)[0];
-      this.department = DEPARTMENTS.filter( dept => dept.id === params.id)[0];
+export class ResearchPageComponent implements OnInit {
+  research: any;
+  department: any;
+  projects: any;
+  user:any;
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private service: ApiClientService
+  ) {
+
+  }
+
+  ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.service.getDepartments().subscribe(departments => {
+        this.department = departments.filter(dept => dept.departmentId === params.id)[0];
+        this.research = this.department.researchLab.filter(research => research.researchLabId === params.researchId)[0];
+        this.service.getProjectsByLabId(params.researchId).subscribe( projects =>{
+          this.projects = projects;
+        })
+      });
+    });
+  }
+
+  showUserOverview(userId){
+    this.service.getUserById(userId.trim()).subscribe(userdata =>{
+      this.user = userdata;
     })
-   }
+  }
 
 }

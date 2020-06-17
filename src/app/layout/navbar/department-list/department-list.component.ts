@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-
-import { DEPARTMENTS } from './../../../keys/constant';
+import { Component,Input  } from '@angular/core';
 
 @Component({
   selector: 'app-department-list',
@@ -9,7 +7,5 @@ import { DEPARTMENTS } from './../../../keys/constant';
 })
 
 export class DepartmentListComponent{
-
-  departments = DEPARTMENTS;
-
+  @Input() departments: any;
 }

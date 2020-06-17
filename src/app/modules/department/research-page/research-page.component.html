@@ -1,12 +1,74 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink = "/home">Home</a></li>
-        <li class="breadcrumb-item" ><a routerLink = "/department/{{department.id}}">{{department.name}}</a></li>
-        <li class="breadcrumb-item active" >{{research.name}}</li>
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+        <li class="breadcrumb-item">
+            <a routerLink="/department/{{ department?.departmentId }}">{{
+        department?.departmentName
+      }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ research?.researchLabName }}</li>
     </ol>
 </nav>
 
-<div class="container"> 
-    <div class="title">{{research.name}}</div>
-    Project cards section below
+<div class="container">
+    <div class="title">{{ research?.researchLabName }}</div>
+    <div class="row">
+            <div class="col-md-6" *ngFor="let project of projects">
+                <div class="card border-secondary">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <h5 class="card-title">{{ project.projectTitle }}</h5>
+                            <p class="card-text">{{ project.projectSummary }}</p>
+                        </li>
+                        <li class="list-group-item">
+                            <h6 class="card-text text-muted">Contributors</h6>
+                            <span class=" pr-3" *ngFor="let member of project.team">
+                                <span 
+                                    #userId
+                                    class="badge badge-pill badge-secondary" 
+                                    (click)="showUserOverview(userId.innerHTML)"
+                                    data-toggle="modal" 
+                                    data-target="#userOverviewModal">
+                                        {{ member }}
+                                </span>
+                            </span>
+                        </li>
+                        <p class="list-group-item card-text">
+                            <small class="text-muted">Started {{ project.createdAt | date:'mediumDate'}}</small>
+                            <small class="text-muted float-right">Last updated
+                                {{ project.updatedAt | date:'mediumDate' }}</small>
+                        </p>
+                    </ul>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="modal fade" id="userOverviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Contributor Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                        <table class='table table-borderless'>
+                            <tr>
+                                <td class="text-muted">Name</td>
+                                <td class="card-text text-capitalize">{{user?.userName}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Designation</td>
+                                <td class="card-text text-capitalize">{{user?.userDesignation}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Department</td>
+                                <td class="card-text text-capitalize">{{user?.userDepartment}}</td>
+                            </tr>
+                        </table>
+                </div>
+              </div>
+            </div>
+          </div>
 </div>
