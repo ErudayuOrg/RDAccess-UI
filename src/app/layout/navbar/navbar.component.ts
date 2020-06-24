@@ -9,6 +9,8 @@ import { ApiClientService } from './../../service/api-client.service';
 })
 export class NavbarComponent implements OnInit {
   departments:any;
+  userName: string;
+
   constructor(private service:ApiClientService) { }
 
   ngOnInit(): void {
@@ -17,6 +19,7 @@ export class NavbarComponent implements OnInit {
           dept => ({"departmentId" : dept.departmentId, "departmentName" :dept.departmentName})
       );
       this.departments = allDepartments;
+      this.userName = localStorage.getItem('USERNAME');
     })
   }
 

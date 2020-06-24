@@ -6,11 +6,11 @@ import { ResearchPageComponent } from './research-page/research-page.component';
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: ':departmentId',
     component: DepartmentPageComponent
   },
   {
-    path: ':id/:researchId',
+    path: ':departmentId/:researchId',
     component: ResearchPageComponent
   }
 ];

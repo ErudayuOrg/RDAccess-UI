@@ -5,19 +5,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 
+import { ApiClientService } from './service/api-client.service';
+import { AuthGuardService } from './service/auth-guard.service';
+
 import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
 import { DepartmentListComponent } from './layout/navbar/department-list/department-list.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
-
-import { ApiClientService } from './service/api-client.service';
+import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
+import { UserDropdownComponent } from './layout/navbar/user-dropdown/user-dropdown.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ContentLayoutComponent,
     NavbarComponent,
-    DepartmentListComponent
+    DepartmentListComponent,
+    AuthLayoutComponent,
+    UserDropdownComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,7 @@ import { ApiClientService } from './service/api-client.service';
     NgbModule,
     HttpClientModule
   ],
-  providers: [ApiClientService],
+  providers: [ApiClientService,AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

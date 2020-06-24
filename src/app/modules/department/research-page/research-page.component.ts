@@ -24,7 +24,7 @@ export class ResearchPageComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       this.service.getDepartments().subscribe(departments => {
-        this.department = departments.filter(dept => dept.departmentId === params.id)[0];
+        this.department = departments.filter(dept => dept.departmentId === params.departmentId)[0];
         this.research = this.department.researchLab.filter(research => research.researchLabId === params.researchId)[0];
         this.service.getProjectsByLabId(params.researchId).subscribe( projects =>{
           this.projects = projects;

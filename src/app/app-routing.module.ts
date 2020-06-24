@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { AuthGuardService } from './service/auth-guard.service';
+
 import {ContentLayoutComponent} from "./layout/content-layout/content-layout.component";
+import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
+
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/auth/login',
     pathMatch: 'full'
   },
   {
     path: '',
-    component: ContentLayoutComponent,
+    component: ContentLayoutComponent, canActivateChild:[AuthGuardService],
     children: [
       {
         path: 'home',
@@ -27,10 +31,22 @@ const routes: Routes = [
         path: 'user',
         loadChildren: () =>
           import('./modules/user/user.module').then(m => m.UserModule)
+      },
+      {
+        path: 'project',
+        loadChildren: () =>
+          import('./modules/project/project.module').then(m => m.ProjectModule)
       }
     ]
   },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' }
+  {
+    path: 'auth',
+    component: AuthLayoutComponent, 
+    canActivate :[AuthGuardService],
+    loadChildren: () => 
+      import('./modules/auth/auth.module').then(m => m.AuthModule)
+  },
+  { path: '**', redirectTo: '/auth/login', pathMatch: 'full' }
 ];
 
 @NgModule({

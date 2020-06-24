@@ -1,0 +1,17 @@
+<li class="nav-item dropdown pr-5">
+    <a
+      class="nav-link dropdown-toggle"
+      id="navbarDropdown"
+      role="button"
+      data-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      {{userName}}
+    </a>
+    <div class="dropdown-menu fade-up" aria-labelledby="navbarDropdown">
+      <a class="dropdown-item" routerLink="/user"> Profile </a>
+      <a class="dropdown-item" (click) = "logout()"> Logout </a>
+    </div>
+  </li>
+  

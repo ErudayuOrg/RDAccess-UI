@@ -6,4 +6,49 @@
 }
 a{
     text-decoration: none !important;
+    color: inherit;
+}
+
+.c-pointer{
+    cursor: pointer;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #1e4175 !important;
+    color: #ffcc29 !important;
+}
+
+.navbar-custom { 
+    background-color: #1e4175; 
+}
+
+.nav-item .nav-link, .navbar-brand { 
+    color: #ffcc29 !important; 
+} 
+.dropdown-menu
+{
+	border:none;
+	display: block;
+	height: 0px;
+	overflow: hidden;
+	padding: 0px;
+    top: 60px;
+    background-color: #fdfdfd;
+    transition: all 350ms;
+}
+.dropdown:hover .dropdown-menu
+{
+	display: block;
+    height: inherit;
+    top: 38px;
+}
+
+.dropdown-item{
+    padding: 15px;
+    border-bottom: 1px #ececec solid;
+    cursor: pointer;
+}
+.dropdown-item:hover{
+    background-color: #aaaaaa;
+    color:#ffffff
 }
