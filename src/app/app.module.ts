@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { ApiClientService } from './service/api-client.service';
 import { AuthGuardService } from './service/auth-guard.service';
+import { GlobalStoreService } from './service/global-store.service';
+
 
 import { AppComponent } from './app.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';
@@ -30,7 +32,10 @@ import { UserDropdownComponent } from './layout/navbar/user-dropdown/user-dropdo
     NgbModule,
     HttpClientModule
   ],
-  providers: [ApiClientService,AuthGuardService],
+  providers: [
+    ApiClientService,
+    AuthGuardService, 
+    GlobalStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

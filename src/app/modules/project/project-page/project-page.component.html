@@ -7,6 +7,12 @@
 </nav>
 
 <div class="container">
+    <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!successMessage">
+        {{successMessage}}
+        <button type="button" class="close" (click)="clearSuccessMessage()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     <div class="title">{{ project?.projectTitle }}</div>
     <p class="list-group-item card-text">
         <small class="text-muted">Started {{ project?.createdAt | date:'mediumDate'}}</small>
@@ -15,24 +21,34 @@
     </p>
     <div class="row">
         <div class="col-md-9">
-            <div class="card border-secondary">
+            <div class="card border-secondary mb-1">
                 <div class="card-body">
                     <h5 class="card-title">Summary</h5>
-                    <p class="card-text text-muted">{{ project?.projectSummary }}</p>
+                    <p class="card-text text-dark">{{ project?.projectSummary }}</p>
                 </div>
             </div>
-            <div class="card border-secondary" [hidden]="!project?.referenceLink.length">
+            <div class="card border-secondary mb-1" [hidden]="!project?.referenceLink.length">
                 <div class="card-body">
                     <h5 class="card-title">References</h5>
                     <div *ngFor="let reference of project?.referenceLink" >
-                        <a href="reference"></a>
-                        <p class="card-text text-muted">{{ reference }}</p>
+                        <a href={{reference}} class="card-text text-muted">
+                            {{ reference }}
+                        </a>
                     </div>
+                </div>
+            </div>
+            <div class="card border-secondary mb-1" [hidden]="!project?.keywords.length">
+                <div class="card-body">
+                    <h5 class="card-title">Keywords</h5>
+                    <span *ngFor="let keyword of project?.keywords" >
+                        <span class="card-text text-dark mr-2">{{ keyword }}</span>
+                    </span>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card">
+                <div class="p-2 bg-secondary text-white text-center" type="button" data-toggle="modal" data-target="#projectHistoryModal">Show Project History</div>
                 <div class="card-body">
                      <h5>
                         <small>Status
@@ -61,7 +77,13 @@
 <ng-template #Editor>
 
 <div class="container mt-5">
-    <form [formGroup]="projectDetail">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="!errorMessage">
+        {{errorMessage}}
+        <button type="button" class="close" (click)="clearErrorMessage()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <form [formGroup]="projectDetailForm">
         <div class="input-group input-group-lg mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Title</span>
@@ -70,14 +92,14 @@
         </div>
         <div class="row">
             <div class="col-md-9">
-                <div class="card border-secondary">
+                <div class="card border-secondary  mt-1">
                     <div class="card-body">
                         <h5 class="card-title">Summary</h5>
                         <textarea type="text" class="form-control" formControlName="projectSummary" rows="6"></textarea>
                     </div>
                 </div>
 
-                <div class="card border-secondary">
+                <div class="card border-secondary mt-1">
                     <div class="card-body">
                         <h5 class="card-title">References</h5>
                         <h6 *ngFor="let reference of referenceLink">
@@ -89,15 +111,15 @@
 
                     <div class="input-group input-group-sm">
                         <input placeholder="Add Link" type="text" class="form-control"
-                            formControlName="newReferanceLink" [(ngModel)]="projectDetail.value.newReferanceLink" />
+                            formControlName="newReferanceLink" />
                         <div class="input-group-append">
                             <button type="button" class="btn btn-secondary"
-                                (click)="addReferenceToProject(projectDetail.value.newReferanceLink)">&#10010;</button>
+                                (click)="addReferenceToProject(projectDetailForm.get('newReferanceLink').value)">&#10010;</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="card border-secondary">
+                <div class="card border-secondary mt-1">
                     <div class="card-body">
                         <h5 class="card-title">Keywords</h5>
                         <span *ngFor="let keyword of keywords" class="m-3">
@@ -106,16 +128,16 @@
                             </span>
                         </span>
                     </div>
-
                     <div class="input-group input-group-sm">
                         <input placeholder="Add Keyword" type="text" class="form-control"
-                            formControlName="newKeyword" [(ngModel)]="projectDetail.value.newKeyword" />
+                            formControlName="newKeyword" />
                         <div class="input-group-append">
                             <button type="button" class="btn btn-secondary"
-                                (click)="addKeywordToProject(projectDetail.value.newKeyword)">&#10010;</button>
+                                (click)="addKeywordToProject(projectDetailForm.get('newKeyword').value)">&#10010;</button>
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <div class="col-md-3">
@@ -154,38 +176,89 @@
 
                     <div class="input-group input-group-sm">
                         <input list="users" placeholder="Seach userID" type="text" class="form-control"
-                            formControlName="searchedContributorId"
-                            [(ngModel)]="projectDetail.value.searchedContributorId" autocomplete="off"
-                            (keyup)="searchContributorIds(projectDetail.value.searchedContributorId)" />
+                            formControlName="searchedContributorId" autocomplete="off"
+                            (keyup)="searchContributorIds(projectDetailForm.get('searchedContributorId').value)" />
                         <datalist id="users">
                             <option *ngFor="let contributor of contributorIds" [value]="contributor"
                                 (click)="clearContributorIdsDataList()">{{contributor}}</option>
                         </datalist>
                         <div class="input-group-append">
                             <button type="button" class="btn btn-secondary"
-                                (click)="addContributorToTeam(projectDetail.value.searchedContributorId)">&#10010;</button>
+                                (click)="addContributorToTeam(projectDetailForm.get('searchedContributorId').value)">&#10010;</button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
+
+        <div class="modal fade" id="confirmUpdateModal" tabindex="-1" role="dialog" aria-hidden="closeModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Update</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea placeholder="Add update comments..." formControlName="commitMessage"  class="form-control" type="text"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-primary" [disabled]="projectDetailForm.invalid" (click)="updateProjectWithCommit()">
+                    Confirm Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     </form>
 </div>
 
 </ng-template>
 
-<div class="fixed-bottom mb-5 mr-5" [hidden] = "!hideEditButton">
-    <button class="btn btn-outline-secondary float-right" (click)="cancelUpdate()">
-         Cancel
-    </button>
-    <button class="btn btn-primary float-right pl-5 pr-5 mr-2" (click)="updateProject()" [disabled]="projectDetail.invalid">
-        Update
-   </button>
+
+
+<div *ngIf = "canEdit;" class="bottom-section">
+    <div *ngIf = "editMode; else Readmode" >
+        <button  class="btn btn-outline-secondary float-right" (click)="cancelUpdate()">
+            Cancel
+        </button>
+        <button class="btn btn-primary float-right pl-5 pr-5 mr-2" data-toggle="modal" data-target="#confirmUpdateModal">
+            Update
+        </button>
+    </div>
+
+    <ng-template #Readmode >
+        <button class="btn btn-primary float-right" (click)="onEditMode()">
+            Edit
+        </button>
+    </ng-template>
 </div>
 
-<div class="fixed-bottom">
-    <button [hidden] = "hideEditButton" class="btn btn-primary float-right mb-5 mr-5" (click)="onEditMode()">
-         Edit
-    </button>
+
+
+<div class="modal fade" id="projectHistoryModal" tabindex="-1" role="dialog" aria-hidden="closeModal">
+<div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">History</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor ="let history of project?.history">
+                    <div>{{history.commitMessage}}</div> 
+                    <small class="text-muted">{{history.userId}}
+                        <span class="float-right">{{history.updatedDate | date:'mediumDate'}}</span>
+                    </small>
+                </li>
+             
+              </ul>
+        </div>
+    </div>
+</div>
 </div>

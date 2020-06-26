@@ -4,6 +4,13 @@
     font-weight: 350;
     padding-bottom: 5vh;
 }
+
+.title-2{
+    font-size: 1.3rem;
+    font-weight: 420;
+    padding-bottom: 5vh;
+}
+
 a{
     text-decoration: none !important;
     color: inherit;
@@ -11,6 +18,12 @@ a{
 
 .c-pointer{
     cursor: pointer;
+}
+
+.bottom-section  {
+    position: fixed;
+    bottom: 4vh;
+    right: 6vw;
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
