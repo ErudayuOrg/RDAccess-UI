@@ -2,20 +2,19 @@
   <h5 class="title">Login</h5>
   <div class="card border-secondary">
     <div class="card-body">
-      <form #loginForm="ngForm" (ngSubmit)="authenticate(loginForm.value)">
+      <form [formGroup]="loginForm" (ngSubmit)="authenticateUser()">
         <div class="form-group">
           <label>User Id</label>
-          <input type="text" name="userId" class="form-control border-secondary" ngModel />
+          <input type="text" class="form-control border-secondary" formControlName="userId" />
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" name="userPassword" class="form-control border-secondary" ngModel />
+          <input type="password" class="form-control border-secondary" formControlName="userPassword" />
         </div>
-        <button type="submit" value="Submit" class="btn btn-primary btn-lg btn-block mt-5 mb-2">
+        <button type="submit" value="Submit" class="btn btn-primary btn-lg btn-block mt-5 mb-2" [disabled]="loginForm.invalid">
           Login
         </button>
         <div class="alert alert-danger text-center" [hidden]="!errorMessage"> {{errorMessage}}</div>
-
       </form>
     </div>
   </div>

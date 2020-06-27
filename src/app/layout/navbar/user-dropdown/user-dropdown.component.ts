@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
 })
 export class UserDropdownComponent{
   @Input() userName: any;
+  @Input() isProfileAvailable: boolean;
+  @Input() isAdmin: boolean;
+
   constructor(private route: Router){}
 
   logout(){

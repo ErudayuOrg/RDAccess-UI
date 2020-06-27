@@ -7,17 +7,20 @@
 
 <div class="container">
 <div class="title">{{department?.departmentName}}</div>
-    <div class="row">
-        <div *ngFor="let research of researches"  class="col-md-3">
-                <div class="card">
-                    <img class="card-img-top" src={{tempImgUrl}} alt="Card image cap">
+    <div class="row" *ngIf="researches.length; else Emptybox">
+        <div *ngFor="let research of researches"  class="col-md-4">
+                <div class="card mb-5">
                     <div class="card-body">
                         <h5 class="card-title">{{ research?.researchLabName }}</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                            card's content.</p>
-                        <a routerLink="./{{research.researchLabId}}" class="btn btn-primary">View projects</a>
+                        <p class="card-text">Lab description goes here</p>
+                        <a routerLink="./{{research.researchLabId}}" class="btn btn-primary float-right">View projects</a>
                     </div>
                 </div>
         </div>
     </div>
+    <ng-template #Emptybox>
+        <div class="empty-content">
+            <img src="../../../../assets/image/empty-box.png"  alt="Empty content :("/>
+        </div>
+    </ng-template>
 </div>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuardService } from './service/auth-guard.service';
+import { AuthGuardService, AdminGuardService } from './service/auth-guard.service';
 
 import {ContentLayoutComponent} from "./layout/content-layout/content-layout.component";
 import {AuthLayoutComponent} from "./layout/auth-layout/auth-layout.component";
@@ -15,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: ContentLayoutComponent, canActivateChild:[AuthGuardService],
+    component: ContentLayoutComponent, 
+    canActivateChild:[AuthGuardService],
     children: [
       {
         path: 'home',
@@ -36,6 +37,11 @@ const routes: Routes = [
         path: 'project',
         loadChildren: () =>
           import('./modules/project/project.module').then(m => m.ProjectModule)
+      },
+      {
+        path: 'admin-panel',
+        loadChildren: () =>
+          import('./modules/admin-panel/admin-panel.module').then(m => m.AdminPanelModule)
       }
     ]
   },

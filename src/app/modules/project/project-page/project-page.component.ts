@@ -43,8 +43,9 @@ export class ProjectPageComponent implements OnInit {
     private globalStore: GlobalStoreService) { }
 
   ngOnInit(): void {
+    const { userId } = this.globalStore.getGlobalStore()
     this.editMode = false;
-    this.userId = localStorage.getItem('USERID');
+    this.userId = userId;
     this.activatedRoute.params.subscribe((params) => {
       this.service.getProjectById(params.projectId).subscribe(project => {
         this.setViewContent(project);
@@ -56,7 +57,6 @@ export class ProjectPageComponent implements OnInit {
   }
 
   setViewContent(project){
-    console.log(project);
     this.project = project;
     this.projectDetailForm.patchValue({
       projectTitle: project.projectTitle,

@@ -1,75 +1,106 @@
 <div class="container mt-5">
   <div class="col-md-8 m-auto">
-  <h5 class="title text-center mb-3">Create New Project</h5>
-  <div class="card">
-    <div class="card-body">
-      <form [formGroup]="project" (ngSubmit)="createProject()">
-        <div class="form-group">
-          <label>Project Title</label>
-          <textarea type="text" class="form-control" formControlName="projectTitle" rows="1"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Project summary</label>
-          <textarea type="text" class="form-control" formControlName="projectSummary" rows="3"></textarea>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label>Department</label>
-            <select type="text" class="form-control" formControlName="projectDepartment"
-              (change)="getLabs(project.value.projectDepartment)">
-              <option value="">...</option>
-              <option *ngFor="let dept of departments" [value]="dept.departmentId">
-                {{ dept.departmentName }}</option>
-            </select>
+    <h5 class="title text-center mb-3">Create Project</h5>
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="project" (ngSubmit)="createProject()">
+          <div class="form-group">
+            <label>Project Title <span class="required">*</span> </label>
+            <textarea type="text" class="form-control" formControlName="projectTitle" rows="1"></textarea>
           </div>
-          <div class="form-group col-md-6">
-            <label>Lab</label>
-            <select type="text" class="form-control" formControlName="projectLab">
-              <option value="">...</option>
-              <option *ngFor="let lab of researchLabs" [value]="lab.researchLabId">{{ lab.researchLabName }}</option>
-            </select>
+          <div class="form-group">
+            <label>Project summary <span class="required">*</span></label>
+            <textarea type="text" class="form-control" formControlName="projectSummary" rows="3"></textarea>
           </div>
-        </div>
-        <label for="contributors">Contributors </label>
-        <div class="card">
-        <div class="card-body form-row">
-          <div class="form-group col-md-6">
-            <div>
-              <span *ngFor="let contributorId of team" class="badge badge-pill badge-secondary pr-1">{{ contributorId }}
-                <span (click)="removeContributorFromTeam(contributorId)" class="c-pointer">X</span>
-              </span>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>Department <span class="required">*</span> </label>
+              <select type="text" class="form-control" formControlName="projectDepartment"
+                (change)="getLabs(project.value.projectDepartment)">
+                <option value="">...</option>
+                <option *ngFor="let dept of departments" [value]="dept.departmentId">
+                  {{ dept.departmentName }}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
+              <label>Lab <span class="required">*</span> </label>
+              <select type="text" class="form-control" formControlName="projectLab">
+                <option value="">...</option>
+                <option *ngFor="let lab of researchLabs" [value]="lab.researchLabId">{{ lab.researchLabName }}</option>
+              </select>
             </div>
           </div>
-          <div class="form-group col-md-6">
-            <label>Seach UserID</label>
-            <div class="input-group">
-                <input list="users" 
-                        type="text" 
-                        class="form-control" 
-                        formControlName="searchedContributorId" 
-                        [(ngModel)] = "project.value.searchedContributorId"
-                        autocomplete="off" 
-                        (keyup)="searchContributorIds(project.value.searchedContributorId)"/>
-                <datalist id="users">
-                    <option *ngFor="let contributor of contributorIds" [value]="contributor" (click)="clearContributorIdsDataList()">{{contributor}}</option>
-                </datalist>
-                <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary" (click)="addContributorToTeam(project.value.searchedContributorId)">Add</button>
+          <label for="contributors">Contributors </label>
+          <div class="card">
+            <div class="card-body form-row">
+              <div class="form-group col-md-6">
+                <div>
+                  <span *ngFor="let contributorId of team"
+                    class="badge badge-pill badge-secondary pr-1">{{ contributorId }}
+                    <span (click)="removeContributorFromTeam(contributorId)" class="c-pointer">X</span>
+                  </span>
                 </div>
-            </div> 
-        </div>
-        </div></div>
-        <button type="submit" class="btn btn-primary btn-block btn-lg mt-5" [disabled]="project.invalid">
-          Create Project
-        </button>
-        <div class="alert alert-success alert-dismissible fade show" role="alert"  [hidden]="!successMessage">
-          {{successMessage}}
-         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-         </button>
-        </div>
-      </form>
+              </div>
+              <div class="form-group col-md-6">
+                <label>Seach UserId</label>
+                <div class="input-group">
+                  <input list="users" type="text" class="form-control" formControlName="searchedContributorId"
+                    autocomplete="off" (keyup)="searchContributorIds(project.value.searchedContributorId)" />
+                  <datalist id="users">
+                    <option *ngFor="let contributor of contributorIds" [value]="contributor"
+                      (click)="clearContributorIdsDataList()">{{contributor}}</option>
+                  </datalist>
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-secondary"
+                      (click)="addContributorToTeam(project.get('searchedContributorId').value)">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <div class="card-body">
+                <label>I'm <span class="required">*</span></label>
+                <div class="form-check">
+                  <input class="form-check-input mr-5" type="radio" formControlName="isOldProject" id="oldProject"
+                    value="true">
+                  <label class="form-check-label" for="oldProject">Inserting an old project</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input mr-5" type="radio" formControlName="isOldProject" id="newProject"
+                    value="false">
+                  <label class="form-check-label" for="newProject">Creating a new project</label>
+                </div>
+              </div>
+            </div>
+            <diV class="form-group col-md-6" *ngIf="project.get('isOldProject').value === 'true'">
+              <div class="card-body">
+                <label>Created date <span class="required">*</span></label>
+                <input class="form-control" type="date" value="project.get('createdAt').value"
+                  formControlName="createdAt" max="{{lastDate}}" />
+              </div>
+            </diV>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg mt-5" [disabled]="project.invalid">
+            Create Project
+          </button>
+          <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!successMessage">
+            {{successMessage}}
+            <button type="button" class="close">
+              <span (click)="clearMessage()">&times;</span>
+            </button>
+          </div>
+
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="!errorMessage">
+            {{errorMessage}}
+            <button type="button" class="close">
+              <span (click)="clearMessage()">&times;</span>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 </div>

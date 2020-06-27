@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="title">{{ research?.researchLabName }}</div>
-    <div class="row">
+    <div class="row" *ngIf="projects.length; else Emptybox">
             <div class="col-md-12" *ngFor="let project of projects">
                 <div class="card border-secondary">
                     <ul class="list-group list-group-flush">
@@ -51,6 +51,11 @@
                 <br />
             </div>
         </div>
+        <ng-template #Emptybox>
+            <div class="empty-content">
+                <img src="../../../../assets/image/empty-box.png"  alt="Empty content :("/>
+            </div>
+        </ng-template>
         <div class="modal fade" id="userOverviewModal" tabindex="-1" role="dialog" aria-labelledby="userOverviewModal" aria-hidden="true">
             <div class="modal-dialog modal-lg">
               <div class="modal-content">

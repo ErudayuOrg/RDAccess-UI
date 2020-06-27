@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 import { ApiClientService } from "../../../service/api-client.service";
 import { GlobalStoreService } from './../../../service/global-store.service';
@@ -10,17 +11,18 @@ import { GlobalStoreService } from './../../../service/global-store.service';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent{
-  userId:string;
-  userPassword:string;
+  loginForm = new FormGroup({
+    userId: new FormControl('',[Validators.required]),
+    userPassword: new FormControl('',[Validators.required])
+  });
+
   errorMessage:string = "";
+
   constructor(private service: ApiClientService, private router: Router, private globalStore: GlobalStoreService) { }
 
-  authenticate(data){
-    this.service.loginUser(data).subscribe(response =>{
-      console.log(response);
+  authenticateUser(){
+    this.service.loginUser(this.loginForm.value).subscribe(response =>{
       localStorage.setItem('TOKEN',response.token);
-      localStorage.setItem('USERID',response.user.userId);
-      localStorage.setItem('USERNAME',response.user.userName);
       this.globalStore.setGlobalStore(response.user);
       this.router.navigate(['home']);
     },

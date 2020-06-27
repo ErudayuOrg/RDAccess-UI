@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { GlobalStoreService } from './../../service/global-store.service';
 import { ApiClientService } from './../../service/api-client.service';
+
+import {getCreateProjectAccess,isUserWithProfile, hasAdminAccess} from './../../utils/project.utils';
 
 @Component({
   selector: 'app-navbar',
@@ -10,17 +13,25 @@ import { ApiClientService } from './../../service/api-client.service';
 export class NavbarComponent implements OnInit {
   departments:any;
   userName: string;
+  createAccess:boolean;
+  isProfileAvailable:boolean;
+  isAdmin:boolean
 
-  constructor(private service:ApiClientService) { }
+  constructor(private service:ApiClientService, private globalStore: GlobalStoreService) { }
 
   ngOnInit(): void {
+    const {userDesignationCode, userName} = this.globalStore.getGlobalStore();
     this.service.getDepartments().subscribe(departments =>{
       let allDepartments = departments.map(
           dept => ({"departmentId" : dept.departmentId, "departmentName" :dept.departmentName})
       );
       this.departments = allDepartments;
-      this.userName = localStorage.getItem('USERNAME');
+      this.userName = userName;
     })
+
+    this.createAccess = getCreateProjectAccess(userDesignationCode);
+    this.isProfileAvailable = isUserWithProfile(userDesignationCode);
+    this.isAdmin = hasAdminAccess(userDesignationCode);
   }
 
 }

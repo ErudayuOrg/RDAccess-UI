@@ -16,6 +16,7 @@ import { DepartmentListComponent } from './layout/navbar/department-list/departm
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { UserDropdownComponent } from './layout/navbar/user-dropdown/user-dropdown.component';
+import { LoaderComponent } from './layout/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserDropdownComponent } from './layout/navbar/user-dropdown/user-dropdo
     NavbarComponent,
     DepartmentListComponent,
     AuthLayoutComponent,
-    UserDropdownComponent
+    UserDropdownComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,9 @@ import { UserDropdownComponent } from './layout/navbar/user-dropdown/user-dropdo
   providers: [
     ApiClientService,
     AuthGuardService, 
-    GlobalStoreService],
+    GlobalStoreService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+ 

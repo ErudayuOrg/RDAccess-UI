@@ -1,15 +1,18 @@
-/*userDesignationCode:
-* STUDT => student
-* GUEST => princi, mangement, others..
+import { RD_CONSTANT  } from "../keys/constant";
 
-* PROFR => All professor
-* RESER => researchScholar
+const getContributionAccess = (userId, userDesignationCode, team):boolean=>{
+    return(
+        !RD_CONSTANT.ROLE_WITH_NO_EDIT.includes(userDesignationCode) &&
+        team.includes(userId)
+    );
+};
 
-* HOD => HOD
-* ADMIN => Admin */
-
-const ROLE_WITH_NO_EDIT = ['STUD','GUEST',];
-const ROLE_WITH_EDIT = ['HOD'];
+const getRoleAccess = (userDesignationCode, userDepartmentId, projectDepartment):boolean=>{
+    return(
+        userDesignationCode === 'ADMIN' ||
+        (RD_CONSTANT.ROLE_WITH_EDIT.includes(userDesignationCode) && projectDepartment.includes(userDepartmentId))
+    );
+};
 
 export const getEditAccess = (userDetail, projectDetail):boolean=>{
     const {userId,userDesignationCode,userDepartmentId} = userDetail;
@@ -18,18 +21,36 @@ export const getEditAccess = (userDetail, projectDetail):boolean=>{
     const contributionAccess:boolean = getContributionAccess(userId,userDesignationCode,team); 
     const roleAccess:boolean = getRoleAccess(userDesignationCode, userDepartmentId, projectDepartment);
  return contributionAccess || roleAccess;
-}
+};
 
-const getContributionAccess = (userId, userDesignationCode, team):boolean=>{
-    return(
-        !ROLE_WITH_NO_EDIT.includes(userDesignationCode) &&
-        team.includes(userId)
-    );
-}
+export const getCreateProjectAccess = (userDesignationCode) : boolean =>{
+    return !RD_CONSTANT.ROLE_WITH_NO_CREATE.includes(userDesignationCode);
+};
 
-const getRoleAccess = (userDesignationCode, userDepartmentId, projectDepartment):boolean=>{
-    return(
-        userDesignationCode === 'ADMIN' ||
-        (ROLE_WITH_EDIT.includes(userDesignationCode) && projectDepartment.includes(userDepartmentId))
-    );
-}
+export const isUserWithProfile = (userDesignationCode): boolean =>{
+    return !RD_CONSTANT.ROLE_WITH_NO_PROFILE.includes(userDesignationCode);
+};
+
+export const hasAdminAccess = (userDesignationCode) : boolean =>{
+    return RD_CONSTANT.ROLE_WITH_ADMIN_ACCESS.includes(userDesignationCode);
+};
+
+export const getYesterdayDate = ():string =>{
+   let date = new Date()
+   date.setDate(date.getDate()-1);
+   return date.toISOString().substring(0,10);
+};
+
+export const getCreatedDate = (createdDate, isOldProject): Date =>{
+    if(isOldProject === 'true') return new Date(createdDate);
+    return new Date();
+};
+
+export const getDepartmentName = (departmentId, departments) =>{
+   return departments.find( dept => departmentId === dept.departmentId).departmentName;
+};
+
+export const getDesignationName = designationCode =>{
+    return RD_CONSTANT.DESIGNATION.find( designation => designationCode === designation.userDesignationCode).userDesignation;
+};
+

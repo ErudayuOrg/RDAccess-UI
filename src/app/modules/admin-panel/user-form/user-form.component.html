@@ -1,0 +1,58 @@
+<div class="container mt-5">
+    <div class="col-md-8 m-auto">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!successMessage">
+            {{successMessage}}
+            <button type="button" class="close">
+              <span (click)="clearMessage()">&times;</span>
+            </button>
+          </div>
+
+          <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="!errorMessage">
+            {{errorMessage}}
+            <button type="button" class="close">
+              <span (click)="clearMessage()">&times;</span>
+            </button>
+          </div>
+
+        <h5 class="title text-center mb-3">Create User</h5>
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="userForm" (ngSubmit)="createUser()">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>User Id<span class="required">*</span> </label>
+                                <input type="text" class="form-control" formControlName="userId"/>
+                            </div>
+                        </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Username<span class="required">*</span> </label>
+                            <input type="text" class="form-control" formControlName="userName"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Designation<span class="required">*</span> </label>
+                        <select type="text" class="form-control" formControlName="userDesignationCode" (change)="setDepartment()">
+                          <option value="">...</option>
+                          <option *ngFor="let role of designation" [value]="role.userDesignationCode">
+                            {{ role.userDesignation}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="needDepartment">
+                        <label>Department <span class="required">*</span> </label>
+                        <select type="text" class="form-control" formControlName="userDepartmentId">
+                          <option value="">...</option>
+                          <option *ngFor="let dept of departments" [value]="dept.departmentId">
+                            {{ dept.departmentName}}</option>
+                        </select>
+                    </div>
+                </div>
+                    <button type="submit" value="Submit" class="btn btn-primary btn-lg btn-block mt-5 mb-2" [disabled]="userForm.invalid">
+                        Create Research Lab
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

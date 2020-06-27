@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,Validators} from '@angular/forms';
 
+import{ getYesterdayDate,getCreatedDate } from '../../../utils/project.utils';
+
+import { GlobalStoreService } from './../../../service/global-store.service';
 import { ApiClientService } from './../../../service/api-client.service';
 
 @Component({
@@ -10,11 +13,14 @@ import { ApiClientService } from './../../../service/api-client.service';
 })
 
 export class ProjectFormComponent implements OnInit {
+  lastDate = getYesterdayDate();
   project = new FormGroup({
     projectTitle: new FormControl('',[Validators.required, Validators.minLength(5)]),
     projectSummary: new FormControl('',[Validators.required, Validators.minLength(10)]),
     projectDepartment: new FormControl('',[Validators.required]),
     projectLab: new FormControl('', [Validators.required]),
+    createdAt: new FormControl(this.lastDate),
+    isOldProject: new FormControl('', [Validators.required]),
     searchedContributorId: new FormControl('')
   });
   departments:any;
@@ -23,9 +29,11 @@ export class ProjectFormComponent implements OnInit {
   userId:any;
   contributorIds:any = [];
   successMessage:string;
-  constructor(private service:ApiClientService) { }
+  errorMessage:string;
+  constructor(private service:ApiClientService, private globalStore :GlobalStoreService) { }
 
   ngOnInit(): void {
+    const {userId} = this.globalStore.getGlobalStore();
     this.service.getDepartments().subscribe(departments =>{
       let allDepartments = departments.map(
           dept => ({"departmentId" : dept.departmentId,
@@ -34,7 +42,7 @@ export class ProjectFormComponent implements OnInit {
       );
       this.departments = allDepartments;
     });
-    this.userId = localStorage.getItem('USERID');
+    this.userId = userId;
     this.team = [this.userId]; 
   }
 
@@ -70,12 +78,22 @@ export class ProjectFormComponent implements OnInit {
     const {searchedContributorId, ...projectDetails } = this.project.value;
     projectDetails.team = this.team;
     projectDetails.projectDepartment =[projectDetails.projectDepartment];
-    projectDetails.projectLab =[projectDetails.projectLab];
+    projectDetails.projectLab = [projectDetails.projectLab];
+    projectDetails.createdAt = getCreatedDate(projectDetails.createdAt, projectDetails.isOldProject);
     this.service.createNewProject(projectDetails).subscribe( response =>{
+      this.clearMessage();
       this.successMessage = response.message;
       this.project.reset();
       this.team=[this.userId];
+    },error=>{
+      this.clearMessage();
+      this.errorMessage = error;
     })
+  }
+
+  clearMessage(){
+    this.errorMessage = "";
+    this.errorMessage = "";
   }
 
 }

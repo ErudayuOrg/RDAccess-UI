@@ -32,6 +32,16 @@ export class ApiClientService {
   getOverAllSnapshot():Observable<any>{
     return this.http.get<any>(`${this.host}department/over-all-snapshot`); 
   }
+  
+  createDepartment(departmentDetail):Observable<any>{
+    return this.http.post<any>(`${this.host}department/create-department`,departmentDetail, getHeader())
+    .pipe( catchError(err => this.throwError(err)) ); 
+  }
+
+  createResearchLab(researchLabDetail, departmentId):Observable<any>{
+    return this.http.put<any>(`${this.host}department/create-research-lab/${departmentId}`,researchLabDetail, getHeader())
+    .pipe( catchError(err => this.throwError(err)) ); 
+  }
 
   getProjectsByLabId(researchLabId:string):Observable<any>{
     return this.http.get<any>(`${this.host}project/lab/${researchLabId}`, getHeader());
@@ -67,5 +77,10 @@ export class ApiClientService {
   getMatchingUserId(userId:string):Observable<any>{
     return this.http.get<any>(`${this.host}user/match-userId/${userId}`, getHeader())
       .pipe( catchError(err => this.throwError(err)) );
+  }
+  
+  createUser(userDetails):Observable<any>{
+    return this.http.post<any>(`${this.host}user/create`, userDetails, getHeader())
+    .pipe( catchError(err => this.throwError(err)) ); 
   }
 }

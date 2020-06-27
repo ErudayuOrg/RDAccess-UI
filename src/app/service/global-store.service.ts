@@ -5,26 +5,27 @@ import { Injectable } from '@angular/core';
 })
 
 export class GlobalStoreService {
-    private userId:string; 
-    private userDesignationCode:string;
-    private userDepartmentId:string;
     constructor(){
 
     }
     getGlobalStore(){
-        return {userId:this.userId,
-            userDesignationCode:this.userDesignationCode,
-            userDepartmentId:this.userDepartmentId}
+        return {
+            userId:   localStorage.getItem('USERID'),
+            userName:localStorage.getItem('USERNAME'),
+            userDesignationCode:localStorage.getItem('USERDESIGNATIONCODE'),
+            userDepartmentId:localStorage.getItem('USERDEPARTMENTID'),
+            userDesignation:localStorage.getItem('USERDESIGNATION')
+        }
     }
-    setGlobalStore({userId, userDesignationCode, userDepartmentId}){
-        this.userId = userId;
-        this.userDesignationCode = userDesignationCode;
-        this.userDepartmentId = userDepartmentId;
+    setGlobalStore(globalData){
+        localStorage.setItem('USERID',globalData.userId);
+        localStorage.setItem('USERNAME',globalData.userName);
+        localStorage.setItem('USERDESIGNATIONCODE',globalData.userDesignationCode);
+        localStorage.setItem('USERDEPARTMENTID',globalData.userDepartmentId);
+        localStorage.setItem('USERDESIGNATION',globalData.userDesignation);
     }
     clearGlobalStore(){
-        this.userId = "";
-        this.userDesignationCode = "";
-        this.userDepartmentId = "";
+       localStorage.clear();
     }
 
 }
