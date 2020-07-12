@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="title">{{ research?.researchLabName }}</div>
-    <div class="row" *ngIf="projects.length; else Emptybox">
+    <div class="row" *ngIf="projects?.length; else Emptybox">
             <div class="col-md-12" *ngFor="let project of projects">
                 <div class="card border-secondary">
                     <ul class="list-group list-group-flush">

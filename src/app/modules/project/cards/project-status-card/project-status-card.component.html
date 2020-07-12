@@ -1,0 +1,24 @@
+<div class="card mb-1">
+    <div class="card-body" *ngIf="!isEditMode; else Editor" >
+        <h5>
+            <small>Status
+                <span class="float-right badge badge-pill {{badge}} p-2">{{status}}</span>
+            </small>
+        </h5>
+    </div>
+    
+    <ng-template #Editor>
+        <div class="card-header">Set status</div>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input mr-5" type="radio" [formControl]="projectStatus" id="ongoing" value="Ongoing">
+                <label class="form-check-label" for="ongoing">Ongoing</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input mr-5" type="radio" [formControl]="projectStatus" id="complete"
+                    value="Completed">
+                <label class="form-check-label" for="complete">Completed</label>
+            </div>
+        </div>
+    </ng-template>
+</div>

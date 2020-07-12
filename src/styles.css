@@ -25,6 +25,7 @@ a{
 }
 
 .bottom-section  {
+    z-index: 2;
     position: fixed;
     bottom: 4vh;
     right: 6vw;
@@ -74,4 +75,15 @@ a{
     text-align: center;
     opacity: 0.2;
     margin: 20vh auto;
+}
+
+input[type="password"]{
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.disc{
+    font-weight: 500;
+    margin-right: 5px;
 }

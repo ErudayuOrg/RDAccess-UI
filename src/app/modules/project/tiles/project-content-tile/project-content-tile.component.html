@@ -1,0 +1,32 @@
+<div class="card border-secondary mb-1" *ngIf="!isEditMode; else Editor">
+    <div class="card-body">
+        <h5 class="card-title">Content</h5>
+        <div *ngFor="let content of projectContent">
+            <h6>{{ content.subHeading }}</h6>
+            <p class="card-text text-dark mb-4">{{  content.subContent }}</p>
+        </div>
+    </div>
+</div>
+
+<ng-template #Editor>
+    <div class="card border-secondary mt-1">
+        <div class="card-body">
+            <h5 class="card-title">Content</h5>
+            <form [formGroup] ="projectContentForm">
+                <div id="subSectionBlock" formArrayName="subSection">
+                    <div class="mb-3" *ngFor="let item of subSectionArray.controls; let i = index" [formGroupName] = "i">
+                        <div class="input-group input-group-sm mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Sub Heading</span>
+                            </div>
+                            <textarea type="text" class="form-control sub-head" formControlName = "subHeading" rows="1"></textarea>
+                            <span class="btn input-group-text" (click)="deleteSubSection(i)">X</span>
+                        </div>
+                        <textarea type="text" class="form-control" formControlName="subContent" rows="6"></textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" (click)="addSubSection()">&#10010;</button>
+            </form>
+        </div>
+    </div>
+</ng-template>

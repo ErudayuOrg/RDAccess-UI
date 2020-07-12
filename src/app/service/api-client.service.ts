@@ -83,4 +83,9 @@ export class ApiClientService {
     return this.http.post<any>(`${this.host}user/create`, userDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) ); 
   }
+
+  updatePassword(passwords, userId):Observable<any>{
+    return this.http.put<any>(`${this.host}user/update-password/${userId}`, passwords, getHeader())
+    .pipe( catchError(err => this.throwError(err)) ); 
+  }
 }

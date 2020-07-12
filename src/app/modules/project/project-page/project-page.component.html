@@ -1,273 +1,104 @@
-<div *ngIf="!editMode;else Editor">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="home">Home</a></li>
-            <li class="breadcrumb-item active">{{project?.projectTitle |  slice:0:30}}</li>
-        </ol>
-    </nav>
+<app-loader [load]="isloading"></app-loader>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="home">Home</a></li>
+        <li class="breadcrumb-item active">{{project?.projectTitle |  slice:0:30}}</li>
+    </ol>
+</nav>
 
-    <div class="container">
-        <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!successMessage">
-            {{successMessage}}
-            <button type="button" class="close" (click)="clearSuccessMessage()">
-                <span aria-hidden="true">&times;</span>
-            </button>
+<div class="container">
+    <app-message 
+        [successMessage]="successMessage" 
+        [errorMessage]="errorMessage">
+    </app-message> 
+     <app-project-title-tile
+        [projectTitle] = "projectTitle"
+        [isEditMode] = "editMode"
+        (isFormValid) = "checkAllFormValidity($event)"
+        #titleTileRef>
+    </app-project-title-tile>
+    <app-date-tile
+        [showTile] = "!editMode"
+        [createdAt] = "project?.createdAt"
+        [updatedAt] = "project?.updatedAt">
+    </app-date-tile>
+    <div class="row">
+        <div class="col-md-9">
+            <app-project-summary-tile
+                [projectSummary] = "projectSummary"
+                [isEditMode] = "editMode"
+                (isFormValid) = "checkAllFormValidity($event)"
+                #summaryTileRef>
+            </app-project-summary-tile>
+
+            <app-project-keywords-tile
+                [keywords] = "keywords"
+                [isEditMode] = "editMode"
+                (isFormValid) = "checkAllFormValidity($event)"
+                #keywordsTileRef>
+            </app-project-keywords-tile>
+
+            <app-project-references-tile
+                [referenceLink] = "referenceLink"
+                [isEditMode] = "editMode"
+                (isFormValid) = "checkAllFormValidity($event)"
+                #referenceLinkTileRef>
+            </app-project-references-tile>
+
+            <app-project-content-tile
+                [projectContent] = "projectContent"
+                [isEditMode] = "editMode"
+                (isFormValid) = "checkAllFormValidity($event)"
+                #contentTileRef>
+            </app-project-content-tile>
         </div>
-        <div class="title">{{ project?.projectTitle }}</div>
-        <p class="list-group-item card-text">
-            <small class="text-muted">Started {{ project?.createdAt | date:'mediumDate'}}</small>
-            <small class="text-muted float-right">Last updated
-                {{ project?.updatedAt | date:'mediumDate' }}</small>
-        </p>
-        <div class="row">
-            <div class="col-md-9">
-                <div class="card border-secondary mb-1">
-                    <div class="card-body">
-                        <h5 class="card-title">Summary</h5>
-                        <p class="card-text text-dark">{{ project?.projectSummary }}</p>
-                    </div>
-                </div>
-                <div class="card border-secondary mb-1" [hidden]="!project?.referenceLink.length">
-                    <div class="card-body">
-                        <h5 class="card-title">References</h5>
-                        <div *ngFor="let reference of project?.referenceLink">
-                            <a href={{reference}} class="card-text text-muted" target="_blank">
-                                {{ reference }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card border-secondary mb-1" [hidden]="!project?.keywords.length">
-                    <div class="card-body">
-                        <h5 class="card-title">Keywords</h5>
-                        <span *ngFor="let keyword of project?.keywords">
-                            <span class="card-text text-dark mr-2">{{ keyword }}</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="p-2 bg-secondary text-white text-center" type="button" data-toggle="modal"
-                        data-target="#projectHistoryModal">Show Project History</div>
-                    <div class="card-body">
-                        <h5>
-                            <small>Status
-                                <span class="float-right badge badge-pill {{badge}} p-2">{{project?.status}}</span>
-                            </small>
-                        </h5>
-                    </div>
-                </div>
-                <div class="card mt-1">
-                    <div class="card-header">Contributors</div>
-                    <div class="card-body text-center">
-                        <span class=" mr-3 mt-2" *ngFor="let member of project?.team">
-                            <span #userId class="badge badge-pill badge-secondary c-pointer p-1"
-                                (click)="showUserOverview(userId.innerHTML)" data-toggle="modal"
-                                data-target="#userOverviewModal">
-                                {{ member }}
-                            </span>
-                        </span>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-3">
+            <app-project-history-modal
+             [projectHistory] = "history"
+             [isEditMode] = "editMode">
+            </app-project-history-modal>
+
+            <app-project-status-card
+                [status] = "status"
+                [isEditMode] = "editMode"
+                #statusCardRef>
+            </app-project-status-card>
+
+            <app-project-contributors-card
+                [contributors] = "contributors"
+                [isEditMode] = "editMode"
+                #contributorsCardRef>
+            </app-project-contributors-card>
         </div>
     </div>
 </div>
-
-<ng-template #Editor>
-
-    <div class="container mt-5">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert" [hidden]="!errorMessage">
-            {{errorMessage}}
-            <button type="button" class="close" (click)="clearErrorMessage()">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <form [formGroup]="projectDetailForm">
-            <div class="input-group input-group-lg mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Title</span>
-                </div>
-                <textarea type="text" class="form-control" formControlName="projectTitle" rows="1"></textarea>
-            </div>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="card border-secondary  mt-1">
-                        <div class="card-body">
-                            <h5 class="card-title">Summary</h5>
-                            <textarea type="text" class="form-control" formControlName="projectSummary"
-                                rows="6"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="card border-secondary mt-1">
-                        <div class="card-body">
-                            <h5 class="card-title">References</h5>
-                            <h6 *ngFor="let reference of referenceLink">
-                                <span class="badge badge-pill badge-light">{{ reference }}
-                                    <span (click)="removeReferenceFromProject(reference)"
-                                        class="c-pointer">&times;</span>
-                                </span>
-                            </h6>
-                        </div>
-
-                        <div class="input-group input-group-sm">
-                            <input placeholder="Add Link" type="text" class="form-control"
-                                formControlName="newReferanceLink" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-secondary"
-                                    (click)="addReferenceToProject(projectDetailForm.get('newReferanceLink').value)">&#10010;</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card border-secondary mt-1">
-                        <div class="card-body">
-                            <h5 class="card-title">Keywords</h5>
-                            <span *ngFor="let keyword of keywords" class="m-3">
-                                <span class="badge badge-pill badge-light">{{ keyword }}
-                                    <span (click)="removeKeywordFromProject(keyword)" class="c-pointer">&times;</span>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="input-group input-group-sm">
-                            <input placeholder="Add Keyword" type="text" class="form-control"
-                                formControlName="newKeyword" />
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-secondary"
-                                    (click)="addKeywordToProject(projectDetailForm.get('newKeyword').value)">&#10010;</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header">Set status</div>
-                        <div class="card-body">
-                            <div class="form-check">
-                                <input class="form-check-input mr-5" type="radio" formControlName="status" id="ongoing"
-                                    value="Ongoing">
-                                <label class="form-check-label" for="ongoing">Ongoing</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input mr-5" type="radio" formControlName="status" id="complete"
-                                    value="Completed">
-                                <label class="form-check-label" for="ongoing">Completed</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mt-1">
-                        <div class="card-header">Add Contributors</div>
-                        <div class="card-body text-center">
-                            <span class=" mr-3 mt-2" *ngFor="let member of project?.team">
-                                <span #userId class="badge badge-pill badge-secondary c-pointer p-1"
-                                    (click)="showUserOverview(userId.innerHTML)" data-toggle="modal"
-                                    data-target="#userOverviewModal">
-                                    {{ member }}
-                                </span>
-                            </span>
-
-                            <div>
-                                <span class=" mr-3 mt-2" *ngFor="let contributorId of team">
-                                    <span class="badge badge-pill badge-secondary pr-1">{{ contributorId }}
-                                        <span (click)="removeContributorFromTeam(contributorId)"
-                                            class="c-pointer">X</span>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="input-group input-group-sm">
-                            <input list="users" placeholder="Search userId" type="text" class="form-control"
-                                formControlName="searchedContributorId" autocomplete="off"
-                                (keyup)="searchContributorIds(projectDetailForm.get('searchedContributorId').value)" />
-                            <datalist id="users">
-                                <option *ngFor="let contributor of contributorIds" [value]="contributor"
-                                    (click)="clearContributorIdsDataList()">{{contributor}}</option>
-                            </datalist>
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-secondary"
-                                    (click)="addContributorToTeam(projectDetailForm.get('searchedContributorId').value)">&#10010;</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="confirmUpdateModal" tabindex="-1" role="dialog" aria-hidden="closeModal">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Confirm Update</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <textarea placeholder="Add update comments..." formControlName="commitMessage"
-                                    class="form-control" type="text"></textarea>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button data-dismiss="modal" class="btn btn-primary" [disabled]="projectDetailForm.invalid"
-                                (click)="updateProjectWithCommit()">
-                                Confirm Update</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-    </div>
-
-</ng-template>
-
-
+<app-project-update-modal
+    [isEditMode] = "editMode"
+    (confirmUpdateEmitter)="updateProjectWithCommit($event)">
+</app-project-update-modal>
 
 <div *ngIf="canEdit;" class="bottom-section">
     <div *ngIf="editMode; else Readmode">
-        <button class="btn btn-outline-secondary float-right" (click)="cancelUpdate()">
+        <button 
+            class="btn btn-outline-secondary float-right" 
+            (click)="cancelUpdate()">
             Cancel
         </button>
-        <button class="btn btn-primary float-right pl-5 pr-5 mr-2" data-toggle="modal"
-            data-target="#confirmUpdateModal">
+        <button 
+            class="btn btn-primary float-right pl-5 pr-5 mr-2" 
+            data-toggle="modal" 
+            data-target="#confirmUpdateModal"
+            [disabled] = isAnyformInvalid
+            >
             Update
         </button>
     </div>
 
     <ng-template #Readmode>
-        <button class="btn btn-primary float-right" (click)="onEditMode()">
+        <button 
+            class="btn btn-primary float-right" 
+            (click)="onEditMode()">
             Edit
         </button>
     </ng-template>
-</div>
-
-
-
-<div class="modal fade" id="projectHistoryModal" tabindex="-1" role="dialog" aria-hidden="closeModal">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">History</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <ul class="list-group">
-                    <li class="list-group-item" *ngFor="let history of project?.history">
-                        <div>{{history.commitMessage}}</div>
-                        <small class="text-muted">{{history.userId}}
-                            <span class="float-right">{{history.updatedDate | date:'mediumDate'}}</span>
-                        </small>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
 </div>

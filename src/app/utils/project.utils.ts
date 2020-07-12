@@ -54,3 +54,6 @@ export const getDesignationName = designationCode =>{
     return RD_CONSTANT.DESIGNATION.find( designation => designationCode === designation.userDesignationCode).userDesignation;
 };
 
+export const validateAndUpdate = (newData, OldData) =>{
+    return newData? newData: OldData;
+}

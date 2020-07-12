@@ -48,7 +48,7 @@ export class UserFormComponent implements OnInit {
 
   createUser(){
     let userDetails = this.userForm.value;
-    userDetails.userPassword = 'Welcome1';
+    userDetails.userPassword = 'Welcome123';
     userDetails.userDesignation = getDesignationName(userDetails.userDesignationCode);
     if(userDetails.userDepartmentId !== 'NILL')
       userDetails.userDepartment = getDepartmentName(userDetails.userDepartmentId, this.departments);

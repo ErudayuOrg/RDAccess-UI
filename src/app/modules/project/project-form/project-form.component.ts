@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,Validators} from '@angular/forms';
 
+import{ RD_CONSTANT} from '../../../keys/constant';
+
 import{ getYesterdayDate,getCreatedDate } from '../../../utils/project.utils';
 
 import { GlobalStoreService } from './../../../service/global-store.service';
@@ -59,11 +61,12 @@ export class ProjectFormComponent implements OnInit {
   }
 
   addContributorToTeam(contributorId){
-    if(!this.team.includes(contributorId) && contributorId != "" && this.team.length < 2){
-      this.team.push(contributorId);
-      this.project.value.searchedContributorId="";
-    }
-      
+    if(!this.team.includes(contributorId) && 
+      contributorId != "" && 
+      this.team.length <= RD_CONSTANT.MAX_CONTIBUTOR_PER_PROJECT){
+        this.team.push(contributorId);
+        this.project.patchValue({searchedContributorId:""});
+    }   
   }
 
   removeContributorFromTeam(memberId){
@@ -93,7 +96,7 @@ export class ProjectFormComponent implements OnInit {
 
   clearMessage(){
     this.errorMessage = "";
-    this.errorMessage = "";
+    this.successMessage = "";
   }
 
 }
