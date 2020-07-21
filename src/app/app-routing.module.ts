@@ -39,6 +39,16 @@ const routes: Routes = [
           import('./modules/project/project.module').then(m => m.ProjectModule)
       },
       {
+        path: 'publication',
+        loadChildren: () =>
+          import('./modules/publication/publication.module').then(m => m.PublicationModule)
+      },
+      {
+        path: 'funding',
+        loadChildren: () =>
+          import('./modules/funding/funding.module').then(m => m.FundingModule)
+      },
+      {
         path: 'admin-panel',
         loadChildren: () =>
           import('./modules/admin-panel/admin-panel.module').then(m => m.AdminPanelModule)

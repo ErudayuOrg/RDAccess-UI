@@ -5,10 +5,16 @@ import { ProjectCreateGuardService } from '../../service/auth-guard.service';
 
 import { ProjectPageComponent } from './project-page/project-page.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
+import { AllProjectSummaryComponent } from './all-project-summary/all-project-summary.component';
+
 
 const routes: Routes = [
   {
-    path: 'create',
+    path: '',
+    component: AllProjectSummaryComponent
+  },
+  {
+    path: 'add',
     canActivate :[ProjectCreateGuardService],
     component: ProjectFormComponent
   },

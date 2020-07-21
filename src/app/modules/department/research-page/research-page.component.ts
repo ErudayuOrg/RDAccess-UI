@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ApiClientService } from './../../../service/api-client.service';
 
+import { RD_CONSTANT } from './../../../keys/constant';
+
 @Component({
   selector: 'app-research-page',
   templateUrl: './research-page.component.html',
@@ -13,6 +15,7 @@ export class ResearchPageComponent implements OnInit {
   department: any;
   projects: any;
   user:any;
+  labSnapshot:any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,6 +34,23 @@ export class ResearchPageComponent implements OnInit {
         })
       });
     });
+    this.labSnapshot = [{
+      tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.FUNDINGS,
+      tileCount:'20+'
+    },
+    {
+      tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.PROJECTS,
+      tileCount:'100+'
+    },
+    {
+      tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.PUBLICATIONS,
+      tileCount:'50+'
+    },
+    {
+      tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.MOUS,
+      tileCount:'10+'
+    }
+  ]
   }
 
   showUserOverview(userId){

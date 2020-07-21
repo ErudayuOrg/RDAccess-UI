@@ -1,11 +1,13 @@
 <div class="container pt-5">
+    <h5 class="mb-3">My Projects</h5>
     <div class="row">
         <div class="col-md-8">
+            <div class="card">
             <div class="table-responsive"  *ngIf="projects?.length; else Emptybox">
                 <table class="table table-hover">
                     <thead class="thead-light">
                         <tr>
-                            <th scope="col">S. No</th>
+                            <th scope="col">S.No</th>
                             <th scope="col">Project Id</th>
                             <th scope="col">Project Title</th>
                             <th scope="col">Status</th>
@@ -23,6 +25,34 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+            <h5 class="mt-5 mb-3">My Publications</h5>
+            <div class="card">
+                    <div class="table-responsive"  *ngIf="publications?.length; else Emptybox">
+                        <table class="table table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Type</th>
+                                    <th scope="col">Paper Title</th>
+                                    <th scope="col">Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let publication of publications; index as i">
+                                    <th scope="row">{{i+1}}</th>
+                                    <td>{{publication.publicationId}}</td>
+                                    <td>{{publication.publicationType}}</td>
+                                    <td>{{publication.paperTitle}}</td>
+                                    <td>{{publication.yearOfPublication | date:'yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+
+            
             <ng-template #Emptybox>
                 <div class="empty-content">
                     <img src="../../../../assets/image/empty-box.png"  alt="Empty content :("/>
@@ -64,20 +94,32 @@
                     </li>
                 </ul>
             </div>
-
-            <div class="card mt-5">
-                <div class="card-header">
-                    Contribution
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        <h5><small>Department projects
-                                <span class="float-right badge badge-pill badge-warning p-2">{{projects?.length || 0}}</span>
-                            </small>
-                        </h5>
-                    </li>
-                </ul>
-            </div>
+            
+            <table class="table table-hover table-bordered mt-5">
+                <tbody>
+                    <tr routerLink="/project/add">
+                        <td><b>Add Project</b></td>
+                    </tr>
+                    <tr routerLink="/funding/add">
+                        <td><b>Add Funding</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Add Patent</b></td>
+                    </tr>
+                    <tr routerLink="/publication/add">
+                        <td><b>Add Publication</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Add MOU & Partnership</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Add Conference</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Add Consultancy</b></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
    

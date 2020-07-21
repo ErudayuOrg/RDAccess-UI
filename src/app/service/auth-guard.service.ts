@@ -3,7 +3,7 @@ import { Router, CanActivateChild, CanActivate } from '@angular/router';
 
 import { GlobalStoreService } from './global-store.service';
 
-import {getCreateProjectAccess,isUserWithProfile,hasAdminAccess} from "../utils/project.utils";
+import {getCreateProjectAccess, isUserWithProfile, hasAdminAccess, getCreatePublicationAccess, getCreateFundingAccess} from "../utils/project.utils";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,32 @@ export class ProjectCreateGuardService implements CanActivate{
   canActivate():boolean{
     const {userDesignationCode} = this.globalStore.getGlobalStore();
     if(getCreateProjectAccess(userDesignationCode)) return true; 
+    this.route.navigate(['/home']);
+    return false; 
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class PublicationCreateGuardService implements CanActivate{
+  constructor(private route: Router, private globalStore: GlobalStoreService) { }
+  canActivate():boolean{
+    const {userDesignationCode} = this.globalStore.getGlobalStore();
+    if(getCreatePublicationAccess(userDesignationCode)) return true; 
+    this.route.navigate(['/home']);
+    return false; 
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FundingCreateGuardService implements CanActivate{
+  constructor(private route: Router, private globalStore: GlobalStoreService) { }
+  canActivate():boolean{
+    const {userDesignationCode} = this.globalStore.getGlobalStore();
+    if(getCreateFundingAccess(userDesignationCode)) return true; 
     this.route.navigate(['/home']);
     return false; 
   }

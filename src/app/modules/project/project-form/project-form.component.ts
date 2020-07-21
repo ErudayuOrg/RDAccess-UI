@@ -3,7 +3,7 @@ import { FormGroup, FormControl,Validators} from '@angular/forms';
 
 import{ RD_CONSTANT} from '../../../keys/constant';
 
-import{ getYesterdayDate,getCreatedDate } from '../../../utils/project.utils';
+import{ getYesterdayDate,getCreatedDate,filterIdfromTeam } from '../../../utils/project.utils';
 
 import { GlobalStoreService } from './../../../service/global-store.service';
 import { ApiClientService } from './../../../service/api-client.service';
@@ -28,14 +28,14 @@ export class ProjectFormComponent implements OnInit {
   departments:any;
   researchLabs:any;
   team:any;
-  userId:any;
+  userIdName:any;
   contributorIds:any = [];
   successMessage:string;
   errorMessage:string;
   constructor(private service:ApiClientService, private globalStore :GlobalStoreService) { }
 
   ngOnInit(): void {
-    const {userId} = this.globalStore.getGlobalStore();
+    const {userId,userName} = this.globalStore.getGlobalStore();
     this.service.getDepartments().subscribe(departments =>{
       let allDepartments = departments.map(
           dept => ({"departmentId" : dept.departmentId,
@@ -44,8 +44,8 @@ export class ProjectFormComponent implements OnInit {
       );
       this.departments = allDepartments;
     });
-    this.userId = userId;
-    this.team = [this.userId]; 
+    this.userIdName = `${userId}-${userName}`;
+    this.team = [this.userIdName]; 
   }
 
   getLabs(deptId){
@@ -70,7 +70,7 @@ export class ProjectFormComponent implements OnInit {
   }
 
   removeContributorFromTeam(memberId){
-    this.team = this.team.filter(people => (people != memberId || people == this.userId));
+    this.team = this.team.filter(people => (people != memberId || people == this.userIdName));
   }
 
   clearContributorIdsDataList(){
@@ -79,7 +79,7 @@ export class ProjectFormComponent implements OnInit {
 
   createProject(){
     const {searchedContributorId, ...projectDetails } = this.project.value;
-    projectDetails.team = this.team;
+    projectDetails.team = filterIdfromTeam(this.team);
     projectDetails.projectDepartment =[projectDetails.projectDepartment];
     projectDetails.projectLab = [projectDetails.projectLab];
     projectDetails.createdAt = getCreatedDate(projectDetails.createdAt, projectDetails.isOldProject);
@@ -87,7 +87,7 @@ export class ProjectFormComponent implements OnInit {
       this.clearMessage();
       this.successMessage = response.message;
       this.project.reset();
-      this.team=[this.userId];
+      this.team=[this.userIdName];
     },error=>{
       this.clearMessage();
       this.errorMessage = error;

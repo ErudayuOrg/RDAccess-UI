@@ -42,6 +42,10 @@ export class ApiClientService {
     return this.http.put<any>(`${this.host}department/create-research-lab/${departmentId}`,researchLabDetail, getHeader())
     .pipe( catchError(err => this.throwError(err)) ); 
   }
+  
+  getAllProjectsSummary():Observable<any>{
+    return this.http.get<any>(`${this.host}project/all-summary`, getHeader());
+  }
 
   getProjectsByLabId(researchLabId:string):Observable<any>{
     return this.http.get<any>(`${this.host}project/lab/${researchLabId}`, getHeader());
@@ -61,6 +65,15 @@ export class ApiClientService {
     .pipe( catchError(err => this.throwError(err)) );
   }
 
+  getAllPublicationsSummary():Observable<any>{
+    return this.http.get<any>(`${this.host}publication/all-summary`, getHeader());
+  }
+  
+  createNewPublication(publicationDetails:any):Observable<any>{
+    return this.http.post<any>(`${this.host}publication/create-new`, publicationDetails, getHeader())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+  
   getUserById(userId:string):Observable<any>{
     return this.http.get<any>(`${this.host}user/profile/${userId}`, getHeader());
   }
@@ -74,6 +87,10 @@ export class ApiClientService {
     return this.http.get<any>(`${this.host}user/projects/${userId}`, getHeader());
   }
 
+  getPublicationsByUserId(userId:string):Observable<any>{
+    return this.http.get<any>(`${this.host}user/publications/${userId}`, getHeader());
+  }
+  
   getMatchingUserId(userId:string):Observable<any>{
     return this.http.get<any>(`${this.host}user/match-userId/${userId}`, getHeader())
       .pipe( catchError(err => this.throwError(err)) );

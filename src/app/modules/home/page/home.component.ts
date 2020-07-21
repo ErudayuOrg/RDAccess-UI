@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {ApiClientService} from '../../../service/api-client.service';
 
+import { RD_CONSTANT } from '../../../keys/constant';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,9 +17,31 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.service.getDepartmentSnapshot().subscribe( response => {
         this.departmentSnapshot = response;
+        this.departmentSnapshot.forEach( dept =>{
+          dept.completedCount = Math.floor((Math.random() * 90) + 1);
+          dept.onGoingCount = Math.floor((Math.random() * 80) + 1);
+          dept.contributors = Math.floor((Math.random() * 40) + 1);
+        })
     });
     this.service.getOverAllSnapshot().subscribe( response=>{
-      this.overAllSnapshot = response;
+      this.overAllSnapshot = [{
+        tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.LABS,
+        tileCount:response.researchLabs
+      },
+      {
+        tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.PROJECTS,
+        tileCount:'500+'
+      },
+      {
+        tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.PUBLICATIONS,
+        tileCount:'100+'
+      },
+      {
+        tileName:RD_CONSTANT.SNAPSHOT_TILE_TITLE.MOUS,
+        tileCount:'50+'
+      }
+    ]
+
     });
   }
 

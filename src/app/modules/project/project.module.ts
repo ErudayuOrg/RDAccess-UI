@@ -4,10 +4,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { ProjectCreateGuardService } from '../../service/auth-guard.service';
-
-import { LoaderComponent } from '../../shared-components/loader/loader.component';
-import { MessageComponent } from '../../shared-components/message/message.component';
-import { DateTileComponent } from'../../shared-components/date-tile/date-tile.component';
+import { SharedComponentModule } from '../../shared-components/shared-component.module';
 
 import { ProjectPageComponent } from './project-page/project-page.component';
 import { ProjectFormComponent } from './project-form/project-form.component';
@@ -20,6 +17,7 @@ import { ProjectContributorsCardComponent } from './cards/project-contributors-c
 import { ProjectTitleTileComponent } from './tiles/project-title-tile/project-title-tile.component';
 import { ProjectHistoryModalComponent } from './modals/project-history-modal/project-history-modal.component';
 import { ProjectUpdateModalComponent } from './modals/project-update-modal/project-update-modal.component';
+import { AllProjectSummaryComponent } from './all-project-summary/all-project-summary.component';
 
 @NgModule({
   declarations: [
@@ -33,16 +31,15 @@ import { ProjectUpdateModalComponent } from './modals/project-update-modal/proje
     ProjectContributorsCardComponent,
     ProjectTitleTileComponent,
     ProjectHistoryModalComponent,
-    LoaderComponent,
-    MessageComponent,
     ProjectUpdateModalComponent,
-    DateTileComponent
+    AllProjectSummaryComponent
   ],
   imports: [
     CommonModule,
     ProjectRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedComponentModule
   ],
   providers: [ProjectCreateGuardService],
 })

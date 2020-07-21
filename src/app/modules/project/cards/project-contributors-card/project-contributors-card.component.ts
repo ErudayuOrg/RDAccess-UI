@@ -1,5 +1,5 @@
 import { Component,  Input, OnChanges } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormArray} from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray} from '@angular/forms';
 
 import { ApiClientService } from 'src/app/service/api-client.service';
 

@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">{{isEditMode?'Add Contributor':'Contributors'}}</div>
     <form [formGroup]="contributorForm">
-        <div class="card-body text-center">
+        <div class="card-body">
             <span class=" mr-2 mt-2" *ngFor="let contributor of contributors">
                 <span #userId class="badge badge-pill badge-secondary c-pointer p-1">
                     {{ contributor }}

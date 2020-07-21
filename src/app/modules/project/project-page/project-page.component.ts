@@ -6,7 +6,7 @@ import { GlobalStoreService } from './../../../service/global-store.service';
 
 import { RD_CONSTANT } from './../../../keys/constant';
 
-import {getEditAccess,validateAndUpdate}  from "../../../utils/project.utils";
+import {getEditAccess,validateAndUpdate,filterIdfromTeam}  from "../../../utils/project.utils";
 
 @Component({
   selector: 'app-project-page',
@@ -117,7 +117,7 @@ export class ProjectPageComponent implements OnInit, OnChanges {
       referenceLink:this.referenceLink,
       projectContent: this.projectContent,
       status: this.status,
-      team: this.contributors,
+      team: filterIdfromTeam(this.contributors),
       history
     };
     

@@ -38,19 +38,19 @@
                 #keywordsTileRef>
             </app-project-keywords-tile>
 
-            <app-project-references-tile
-                [referenceLink] = "referenceLink"
-                [isEditMode] = "editMode"
-                (isFormValid) = "checkAllFormValidity($event)"
-                #referenceLinkTileRef>
-            </app-project-references-tile>
-
             <app-project-content-tile
                 [projectContent] = "projectContent"
                 [isEditMode] = "editMode"
                 (isFormValid) = "checkAllFormValidity($event)"
                 #contentTileRef>
             </app-project-content-tile>
+
+            <app-project-references-tile
+                [referenceLink] = "referenceLink"
+                [isEditMode] = "editMode"
+                (isFormValid) = "checkAllFormValidity($event)"
+                #referenceLinkTileRef>
+            </app-project-references-tile>
         </div>
         <div class="col-md-3">
             <app-project-history-modal

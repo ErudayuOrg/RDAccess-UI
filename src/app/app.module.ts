@@ -9,7 +9,6 @@ import { ApiClientService } from './service/api-client.service';
 import { AuthGuardService } from './service/auth-guard.service';
 import { GlobalStoreService } from './service/global-store.service';
 
-
 import { AppComponent } from './app.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
 import { ContentLayoutComponent } from './layout/content-layout/content-layout.component';

@@ -1,14 +1,14 @@
-<li class="nav-item dropdown pr-5">
-    <a
-      class="nav-link dropdown-toggle"
+<li class="nav-item dropdown pr-2">
+    <small
+      class="nav-link dropdown-toggle c-pointer"
       id="navbarDropdown"
       role="button"
       data-toggle="dropdown"
       aria-haspopup="true"
       aria-expanded="false"
     >
-      {{userName}}
-    </a>
+      {{userName | uppercase }}
+    </small>
     <div class="dropdown-menu fade-up" aria-labelledby="navbarDropdown">
       <a class="dropdown-item" routerLink="/user" *ngIf="isProfileAvailable"> Profile </a>
       <div *ngIf="isAdmin">

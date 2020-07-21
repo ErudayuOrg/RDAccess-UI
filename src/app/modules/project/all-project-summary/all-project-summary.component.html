@@ -1,18 +1,11 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
-        <li class="breadcrumb-item">
-            <a routerLink="/department/{{ department?.departmentId }}">{{
-        department?.departmentName
-      }}</a>
-        </li>
-        <li class="breadcrumb-item active">{{ research?.researchLabName }}</li>
+        <li class="breadcrumb-item"><a routerLink = "/home">Home</a></li>
+        <li class="breadcrumb-item active" >Projects</li>
     </ol>
 </nav>
 
-<div class="container">
-    <app-snapshot-tiles [snapshot] = "labSnapshot"> </app-snapshot-tiles>
-    <div class="title">{{ research?.researchLabName }}</div>
+<div class="container mt-5">
     <div class="row" *ngIf="projects?.length; else Emptybox">
             <div class="col-md-12" *ngFor="let project of projects">
                 <div class="card border-secondary">

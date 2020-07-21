@@ -18,12 +18,23 @@ export const getEditAccess = (userDetail, projectDetail):boolean=>{
     const {userId,userDesignationCode,userDepartmentId} = userDetail;
     const {team,projectDepartment} = projectDetail;
 
-    const contributionAccess:boolean = getContributionAccess(userId,userDesignationCode,team); 
+    const contributionAccess:boolean = getContributionAccess(userId,userDesignationCode,filterIdfromTeam(team)); 
     const roleAccess:boolean = getRoleAccess(userDesignationCode, userDepartmentId, projectDepartment);
- return contributionAccess || roleAccess;
+    console.log(contributionAccess);
+    console.log(roleAccess);
+
+    return contributionAccess || roleAccess;
 };
 
 export const getCreateProjectAccess = (userDesignationCode) : boolean =>{
+    return !RD_CONSTANT.ROLE_WITH_NO_CREATE.includes(userDesignationCode);
+};
+
+export const getCreatePublicationAccess = (userDesignationCode) : boolean =>{
+    return !RD_CONSTANT.ROLE_WITH_NO_CREATE.includes(userDesignationCode);
+};
+
+export const getCreateFundingAccess = (userDesignationCode) : boolean =>{
     return !RD_CONSTANT.ROLE_WITH_NO_CREATE.includes(userDesignationCode);
 };
 
@@ -56,4 +67,10 @@ export const getDesignationName = designationCode =>{
 
 export const validateAndUpdate = (newData, OldData) =>{
     return newData? newData: OldData;
+}
+
+export const filterIdfromTeam = team =>{
+    return team.map( user =>{
+       return user.split('-')[0];
+    })
 }

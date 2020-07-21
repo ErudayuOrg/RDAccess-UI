@@ -1,40 +1,8 @@
 <div class="container">
-  <div class="row mt-5">
-    <div class="col-md-3 col-sm-6">
-      <div class="gradient-card text-white bg-c-green mb-3">
-        <div class="card-body">
-          <h2 class="display-4">{{overAllSnapshot?.completedProjects}}</h2>
-          <p class="card-text">Overall completed projects</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="gradient-card borderless text-white bg-c-yellow mb-3">
-        <div class="card-body">
-          <h2 class="display-4">{{overAllSnapshot?.ongoingProjects}}</h2>
-          <p class="card-text">Overall ongoing projects</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="gradient-card borderless text-white bg-c-pink mb-3">
-        <div class="card-body">
-          <h2 class="display-4">{{overAllSnapshot?.contributors}}</h2>
-          <p class="card-text">Overall contributors</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-6">
-      <div class="gradient-card borderless text-white bg-c-blue mb-3">
-        <div class="card-body">
-          <h2 class="display-4">{{overAllSnapshot?.researchLabs}}</h2>
-          <p class="card-text">Total research labs</p>
-        </div>
-      </div>
-    </div>
+  <div class="mt-5">
+    <app-snapshot-tiles [snapshot] = "overAllSnapshot"> </app-snapshot-tiles>
   </div>
-
-  <div class="row mt-5">
+  <div class="row mt-3">
     <div class="col-md-4 col-sm-12" *ngFor="let department of departmentSnapshot">
       <div class="card mb-5 c-pointer" routerLink="/department/{{department.departmentId}}">
         <div class="card-body same-height">

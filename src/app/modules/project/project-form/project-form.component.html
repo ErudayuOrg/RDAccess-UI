@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="col-md-8 m-auto">
-    <h5 class="title text-center mb-3">Create Project</h5>
+    <h5 class="title text-center mb-3">Add Project</h5>
     <div class="card">
       <div class="card-body">
         <form [formGroup]="project" (ngSubmit)="createProject()">
@@ -37,7 +37,7 @@
                 <div>
                   <span *ngFor="let contributorId of team"
                     class="badge badge-pill badge-secondary pr-1">{{ contributorId }}
-                    <span (click)="removeContributorFromTeam(contributorId)" class="c-pointer">X</span>
+                    <span *ngIf="contributorId !== userIdName" (click)="removeContributorFromTeam(contributorId)" class="c-pointer">X</span>
                   </span>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                 <div class="form-check">
                   <input class="form-check-input mr-5" type="radio" formControlName="isOldProject" id="oldProject"
                     value="true">
-                  <label class="form-check-label" for="oldProject">Inserting an old project</label>
+                  <label class="form-check-label" for="oldProject">Adding an existing project</label>
                 </div>
                 <div class="form-check">
                   <input class="form-check-input mr-5" type="radio" formControlName="isOldProject" id="newProject"
@@ -84,7 +84,7 @@
             </diV>
           </div>
           <button type="submit" class="btn btn-primary btn-block btn-lg mt-5" [disabled]="project.invalid">
-            Create Project
+            Add Project
           </button>
           <div class="alert alert-success alert-dismissible fade show" role="alert" [hidden]="!successMessage">
             {{successMessage}}

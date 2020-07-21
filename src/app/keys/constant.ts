@@ -2,8 +2,8 @@ export const RD_CONSTANT ={
 DESIGNATION : [
   { userDesignationCode: 'ADMIN', userDesignation: 'Admin' },
   { userDesignationCode: 'HOD', userDesignation: 'Head of the Department' },
-  { userDesignationCode: 'PROFR', userDesignation: 'Professor' },
-  { userDesignationCode: 'RESER', userDesignation: 'Research Scholar' },
+  { userDesignationCode: 'PROFR', userDesignation: 'Teaching staff' },
+  { userDesignationCode: 'RESER', userDesignation: 'Non-Teaching staff' },
   { userDesignationCode: 'STUDT', userDesignation: 'Student' },
   { userDesignationCode: 'GUEST', userDesignation: 'Guest' }
 ],
@@ -22,5 +22,13 @@ PROJECT_TILE_INDEX :{
     KEYWORDS:2,
     REFERENCE:3,
     CONTENT:4
+  },
+
+  SNAPSHOT_TILE_TITLE :{
+    FUNDINGS:'Funded projects',
+    LABS:'Total research labs',
+    PROJECTS:'Total projects',
+    PUBLICATIONS:'Total Publications',
+    MOUS:'Total MOUs'
   }
 }

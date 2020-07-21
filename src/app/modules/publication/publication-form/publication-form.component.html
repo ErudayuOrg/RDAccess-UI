@@ -1,0 +1,113 @@
+<div class="container mt-5">
+    <div class="col-md-10 m-auto">
+      <app-message 
+        [successMessage]="successMessage" 
+        [errorMessage]="errorMessage">
+     </app-message> 
+      <h5 class="title text-center mb-3">Add Publication</h5>
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup] ="publicationForm" (ngSubmit)="addPublication()">
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>Publication Type <span class="required">*</span> </label>
+                <input type="text" class="form-control" formControlName = "publicationType"/>
+              </div>
+              <div class="form-group col-md-8">
+                <label>Publication Name <span class="required">*</span> </label>
+                <input type="text" class="form-control" formControlName = "publicationName"/>
+              </div>
+              <div class="form-group col-md-12">
+                <label>Paper Title<span class="required">*</span> </label>
+                <input type="text" class="form-control" formControlName = "paperTitle"/>
+              </div>
+            </div>
+            <hr/>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>Publisher ID <span class="required">*</span> </label>
+                    <input type="text" class="form-control" formControlName = "publisherId" readonly/>
+                  </div>  
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Volume Number <span class="required">*</span> </label>
+                    <input type="number" class="form-control" formControlName = "volumeNumber"/>
+                  </div>  
+                  <div class="form-group col-md-6">
+                    <label>Year of Publication <span class="required">*</span> </label>
+                    <input type="date" class="form-control" formControlName = "yearOfPublication"/>
+                  </div>  
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>ISSN <span class="required">*</span> </label>
+                    <input type="text" class="form-control" formControlName = "ISSN"/>
+                  </div> 
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                      <label>Indexing <span class="required">*</span> </label>
+                      <input type="text" class="form-control" formControlName = "indexing"/>
+                    </div>  
+                    <div class="form-group col-md-6">
+                      <label>Role <span class="required">*</span> </label>
+                      <input type="text" class="form-control" formControlName = "role"/>
+                    </div>  
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Pages From <span class="required">*</span> </label>
+                    <input type="number" class="form-control" formControlName = "pagesFrom"/>
+                  </div>  
+                  <div class="form-group col-md-6">
+                    <label>Pages To <span class="required">*</span> </label>
+                    <input type="number" class="form-control" formControlName = "pagesTo"/>
+                  </div> 
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-12">
+                    <label>ISBN <span class="required">*</span> </label>
+                    <input type="text" class="form-control" formControlName = "ISBN"/>
+                  </div> 
+                </div>
+              </div>
+            </div>
+            <hr/>
+            
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label>Contribution as <span class="required">*</span> </label>
+                <input type="text" class="form-control" formControlName = "contributionAs"/>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Issue Number <span class="required">*</span> </label>
+                <input type="number" class="form-control" formControlName = "issueNumber"/>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Impact Factor<span class="required">*</span> </label>
+                <input type="text" class="form-control" formControlName = "impactFactor"/>
+              </div>
+              <div class="form-group col-md-4">
+                <label>Edition Number <span class="required">*</span> </label>
+                <input type="number" class="form-control" formControlName = "editionNumber"/>
+              </div>
+              <div class="form-group col-md-8">
+                <label>DOI/URL <span class="required">*</span> </label>
+                <input type="text" class="form-control" formControlName = "DOIorURL"/>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block btn-lg mt-5" [disabled]="publicationForm.invalid">
+              Add Publication
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

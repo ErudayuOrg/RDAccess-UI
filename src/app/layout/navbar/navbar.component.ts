@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { GlobalStoreService } from './../../service/global-store.service';
 import { ApiClientService } from './../../service/api-client.service';
 
-import {getCreateProjectAccess,isUserWithProfile, hasAdminAccess} from './../../utils/project.utils';
+import {isUserWithProfile, hasAdminAccess} from './../../utils/project.utils';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +13,6 @@ import {getCreateProjectAccess,isUserWithProfile, hasAdminAccess} from './../../
 export class NavbarComponent implements OnInit {
   departments:any;
   userName: string;
-  createAccess:boolean;
   isProfileAvailable:boolean;
   isAdmin:boolean
 
@@ -29,7 +28,6 @@ export class NavbarComponent implements OnInit {
       this.userName = userName;
     })
 
-    this.createAccess = getCreateProjectAccess(userDesignationCode);
     this.isProfileAvailable = isUserWithProfile(userDesignationCode);
     this.isAdmin = hasAdminAccess(userDesignationCode);
   }
