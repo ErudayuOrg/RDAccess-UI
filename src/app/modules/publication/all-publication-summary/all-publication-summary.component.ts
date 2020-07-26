@@ -15,7 +15,6 @@ export class AllPublicationSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getAllPublicationsSummary().subscribe( publicationsSummary =>{
-      console.log(publicationsSummary);
       this.publications = publicationsSummary;
     })
   }

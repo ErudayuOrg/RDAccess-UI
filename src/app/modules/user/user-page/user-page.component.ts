@@ -4,6 +4,8 @@ import { GlobalStoreService } from './../../../service/global-store.service';
 import { ApiClientService } from '../../../service/api-client.service';
 import {getCreateProjectAccess} from '../../../utils/project.utils';
 
+
+
 @Component({
   selector: 'app-user-page',
   templateUrl: './user-page.component.html',
@@ -18,6 +20,8 @@ export class UserPageComponent implements OnInit {
   departmentId:string;
   designation:string;
   createAccess:boolean;
+  
+  notificatation: string;
   constructor(private service:ApiClientService, private globalStore: GlobalStoreService) { }
 
   ngOnInit(): void {

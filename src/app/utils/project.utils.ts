@@ -17,12 +17,8 @@ const getRoleAccess = (userDesignationCode, userDepartmentId, projectDepartment)
 export const getEditAccess = (userDetail, projectDetail):boolean=>{
     const {userId,userDesignationCode,userDepartmentId} = userDetail;
     const {team,projectDepartment} = projectDetail;
-
     const contributionAccess:boolean = getContributionAccess(userId,userDesignationCode,filterIdfromTeam(team)); 
     const roleAccess:boolean = getRoleAccess(userDesignationCode, userDepartmentId, projectDepartment);
-    console.log(contributionAccess);
-    console.log(roleAccess);
-
     return contributionAccess || roleAccess;
 };
 
@@ -51,6 +47,12 @@ export const getYesterdayDate = ():string =>{
    date.setDate(date.getDate()-1);
    return date.toISOString().substring(0,10);
 };
+
+export const getTodayDate = ():string =>{
+    let date = new Date()
+    date.setDate(date.getDate());
+    return date.toISOString().substring(0,10);
+ };
 
 export const getCreatedDate = (createdDate, isOldProject): Date =>{
     if(isOldProject === 'true') return new Date(createdDate);

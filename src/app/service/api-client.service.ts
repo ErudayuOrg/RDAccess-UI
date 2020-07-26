@@ -10,7 +10,7 @@ import {getHeader} from '../utils/auth.utils';
 })
 
 export class ApiClientService {
-  host:string = "http://localhost:5000/";
+  host:string = "http://localhost:5000";
   header:any;
   constructor( private http:HttpClient) {
    }
@@ -21,88 +21,116 @@ export class ApiClientService {
   }
   
   //any should be replaced by respective model 
+
+  /*===============DEPARTMENT================= */
   getDepartments():Observable<any>{
-    return this.http.get<any>(`${this.host}department/all-departments`); 
+    return this.http.get<any>(`${this.host}/department/all-departments`); 
   }
 
   getDepartmentSnapshot():Observable<any>{
-    return this.http.get<any>(`${this.host}department/snapshot`); 
+    return this.http.get<any>(`${this.host}/department/snapshot`); 
   }
 
   getOverAllSnapshot():Observable<any>{
-    return this.http.get<any>(`${this.host}department/over-all-snapshot`); 
+    return this.http.get<any>(`${this.host}/department/over-all-snapshot`); 
   }
   
   createDepartment(departmentDetail):Observable<any>{
-    return this.http.post<any>(`${this.host}department/create-department`,departmentDetail, getHeader())
+    return this.http.post<any>(`${this.host}/department/create-department`,departmentDetail, getHeader())
     .pipe( catchError(err => this.throwError(err)) ); 
   }
 
   createResearchLab(researchLabDetail, departmentId):Observable<any>{
-    return this.http.put<any>(`${this.host}department/create-research-lab/${departmentId}`,researchLabDetail, getHeader())
+    return this.http.put<any>(`${this.host}/department/create-research-lab/${departmentId}`,researchLabDetail, getHeader())
     .pipe( catchError(err => this.throwError(err)) ); 
   }
   
+  /*===============PROJECT================= */
   getAllProjectsSummary():Observable<any>{
-    return this.http.get<any>(`${this.host}project/all-summary`, getHeader());
+    return this.http.get<any>(`${this.host}/project/all-summary`, getHeader());
   }
 
   getProjectsByLabId(researchLabId:string):Observable<any>{
-    return this.http.get<any>(`${this.host}project/lab/${researchLabId}`, getHeader());
+    return this.http.get<any>(`${this.host}/project/lab/${researchLabId}`, getHeader());
   }
 
   getProjectById(projectId:string):Observable<any>{
-    return this.http.get<any>(`${this.host}project/overview/${projectId}`, getHeader());
+    return this.http.get<any>(`${this.host}/project/overview/${projectId}`, getHeader());
   }
 
   createNewProject(projectDetails:any):Observable<any>{
-    return this.http.post<any>(`${this.host}project/create-new`, projectDetails, getHeader())
+    return this.http.post<any>(`${this.host}/project/create-new`, projectDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) );
   }
   
   updateProject(projectDetails:any, projectId:string):Observable<any>{
-    return this.http.put<any>(`${this.host}project/update/${projectId}`, projectDetails, getHeader())
+    return this.http.put<any>(`${this.host}/project/update/${projectId}`, projectDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) );
   }
 
+  getMatchingProject(searchText:string):Observable<any>{
+    return this.http.get<any>(`${this.host}/project/search-project/${searchText}`, getHeader());
+  }
+
+  /*===============PUBLICATION================= */
   getAllPublicationsSummary():Observable<any>{
-    return this.http.get<any>(`${this.host}publication/all-summary`, getHeader());
+    return this.http.get<any>(`${this.host}/publication/all-summary`, getHeader());
   }
   
   createNewPublication(publicationDetails:any):Observable<any>{
-    return this.http.post<any>(`${this.host}publication/create-new`, publicationDetails, getHeader())
+    return this.http.post<any>(`${this.host}/publication/create-new`, publicationDetails, getHeader())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+
+  /*===============FUNDING================= */
+  getAllFundingsSummary():Observable<any>{
+    return this.http.get<any>(`${this.host}/funding/all-summary`, getHeader());
+  }
+
+  createNewFunding(fundingDetails:any):Observable<any>{
+    return this.http.post<any>(`${this.host}/funding/create-new`, fundingDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) );
   }
   
+  getfundingDetailsById(fundingId:string):Observable<any>{
+    return this.http.get<any>(`${this.host}/funding/detail/${fundingId}`, getHeader());
+  }
+  
+  updateFunding(fundingDetails:any, fundingId:string):Observable<any>{
+    return this.http.put<any>(`${this.host}/funding/update/${fundingId}`, fundingDetails, getHeader())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+
+  /*===============USER================= */
   getUserById(userId:string):Observable<any>{
-    return this.http.get<any>(`${this.host}user/profile/${userId}`, getHeader());
+    return this.http.get<any>(`${this.host}/user/profile/${userId}`, getHeader());
   }
 
   loginUser(loginDetails:any):Observable<any>{
-    return this.http.post<any>(`${this.host}user/login`, loginDetails)
+    return this.http.post<any>(`${this.host}/user/login`, loginDetails)
       .pipe( catchError(err => this.throwError(err)) );
   }
 
   getProjectByUserId(userId:string):Observable<any>{
-    return this.http.get<any>(`${this.host}user/projects/${userId}`, getHeader());
+    return this.http.get<any>(`${this.host}/user/projects/${userId}`, getHeader());
   }
 
   getPublicationsByUserId(userId:string):Observable<any>{
-    return this.http.get<any>(`${this.host}user/publications/${userId}`, getHeader());
+    return this.http.get<any>(`${this.host}/user/publications/${userId}`, getHeader());
   }
   
   getMatchingUserId(userId:string):Observable<any>{
-    return this.http.get<any>(`${this.host}user/match-userId/${userId}`, getHeader())
+    return this.http.get<any>(`${this.host}/user/match-userId/${userId}`, getHeader())
       .pipe( catchError(err => this.throwError(err)) );
   }
   
   createUser(userDetails):Observable<any>{
-    return this.http.post<any>(`${this.host}user/create`, userDetails, getHeader())
+    return this.http.post<any>(`${this.host}/user/create`, userDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) ); 
   }
 
   updatePassword(passwords, userId):Observable<any>{
-    return this.http.put<any>(`${this.host}user/update-password/${userId}`, passwords, getHeader())
+    return this.http.put<any>(`${this.host}/user/update-password/${userId}`, passwords, getHeader())
     .pipe( catchError(err => this.throwError(err)) ); 
   }
 }

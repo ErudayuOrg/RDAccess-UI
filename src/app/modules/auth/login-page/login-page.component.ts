@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 import { ApiClientService } from "../../../service/api-client.service";
 import { GlobalStoreService } from './../../../service/global-store.service';
+import { SocketService } from './../../../service/socket.service';
 
 @Component({
   selector: 'app-login-page',
@@ -18,13 +19,18 @@ export class LoginPageComponent{
 
   errorMessage:string = "";
 
-  constructor(private service: ApiClientService, private router: Router, private globalStore: GlobalStoreService) { }
+  constructor(private service: ApiClientService,
+    private router: Router,
+    private globalStore: GlobalStoreService,
+    private socket: SocketService
+    ) { }
 
   authenticateUser(){
     this.service.loginUser(this.loginForm.value).subscribe(response =>{
       localStorage.setItem('TOKEN',response.token);
       this.globalStore.setGlobalStore(response.user);
       this.router.navigate(['home']);
+      // this.socket.connectWhenLogin(response.user.userId);
     },
     error => {
       this.errorMessage = error;

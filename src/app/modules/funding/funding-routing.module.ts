@@ -3,13 +3,23 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { FundingCreateGuardService } from '../../service/auth-guard.service';
 
-import { FundingFormComponent } from './funding-form/funding-form.component';
+import { ReceivedFundingFormComponent } from './received-funding-form/received-funding-form.component';
+import { AllFundingSummaryComponent } from './all-funding-summary/all-funding-summary.component';
+import { FundingDetailsPageComponent} from './funding-details-page/funding-details-page.component'
 
 const routes: Routes = [
   {
+    path: '',
+    component: AllFundingSummaryComponent
+  },
+  {
     path: 'add',
     canActivate :[FundingCreateGuardService],
-    component: FundingFormComponent
+    component: ReceivedFundingFormComponent
+  },
+  {
+    path: ':fundingId',
+    component: FundingDetailsPageComponent
   }
 ];
 

@@ -15,7 +15,6 @@ export class AllProjectSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getAllProjectsSummary().subscribe( projectsSummary =>{
-      console.log(projectsSummary);
       this.projects = projectsSummary;
     })
   }

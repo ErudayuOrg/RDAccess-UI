@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {ApiClientService} from '../../../service/api-client.service';
+import { SocketService } from './../../../service/socket.service';
 
 import { RD_CONSTANT } from '../../../keys/constant';
 
@@ -12,9 +13,13 @@ import { RD_CONSTANT } from '../../../keys/constant';
 export class HomeComponent implements OnInit {
   departmentSnapshot: any;
   overAllSnapshot:any;
-  constructor(private service: ApiClientService) { }
+  constructor(private service: ApiClientService, private socket:SocketService) { }
 
   ngOnInit(): void {
+    this.socket.getNotification().subscribe(msg=>{
+      console.log('got a msg: ' + msg);
+    })
+
     this.service.getDepartmentSnapshot().subscribe( response => {
         this.departmentSnapshot = response;
         this.departmentSnapshot.forEach( dept =>{

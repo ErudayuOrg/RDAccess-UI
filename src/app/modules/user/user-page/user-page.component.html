@@ -1,63 +1,61 @@
 <div class="container pt-5">
-    <h5 class="mb-3">My Projects</h5>
+    <h6 class="mb-3">MY PROJECTS</h6>
     <div class="row">
         <div class="col-md-8">
             <div class="card">
-            <div class="table-responsive"  *ngIf="projects?.length; else Emptybox">
-                <table class="table table-hover">
-                    <thead class="thead-light">
-                        <tr>
-                            <th scope="col">S.No</th>
-                            <th scope="col">Project Id</th>
-                            <th scope="col">Project Title</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Started On</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let project of projects; index as i" routerLink="/project/{{project.projectId}}">
-                            <th scope="row">{{i+1}}</th>
-                            <td>{{project.projectId}}</td>
-                            <td>{{project.projectTitle}}</td>
-                            <td>{{project.status}}</td>
-                            <td>{{project.createdAt | date:'mediumDate'}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-            <h5 class="mt-5 mb-3">My Publications</h5>
-            <div class="card">
-                    <div class="table-responsive"  *ngIf="publications?.length; else Emptybox">
-                        <table class="table table-hover">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">S.No</th>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Type</th>
-                                    <th scope="col">Paper Title</th>
-                                    <th scope="col">Year</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let publication of publications; index as i">
-                                    <th scope="row">{{i+1}}</th>
-                                    <td>{{publication.publicationId}}</td>
-                                    <td>{{publication.publicationType}}</td>
-                                    <td>{{publication.paperTitle}}</td>
-                                    <td>{{publication.yearOfPublication | date:'yyyy'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="table-responsive" *ngIf="projects?.length; else Emptybox">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Project Title</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Started On</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let project of projects; index as i"
+                                routerLink="/project/{{project.projectId}}">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{project.projectTitle}}</td>
+                                <td>{{project.status}}</td>
+                                <td>{{project.createdAt | date:'mediumDate'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+                <ng-template #Emptybox>
+                    <app-empty-layout></app-empty-layout>
+                </ng-template>
             </div>
 
-            
-            <ng-template #Emptybox>
-                <div class="empty-content">
-                    <img src="../../../../assets/image/empty-box.png"  alt="Empty content :("/>
+            <h6 class="mt-5 mb-3">MY PUBLICATIONS</h6>
+            <div class="card">
+                <div class="table-responsive" *ngIf="publications?.length; else Emptybox">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Paper Title</th>
+                                <th scope="col">Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let publication of publications; index as i">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{publication.publicationType}}</td>
+                                <td>{{publication.paperTitle}}</td>
+                                <td>{{publication.yearOfPublication | date:'yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </ng-template>
+                <ng-template #Emptybox>
+                    <app-empty-layout></app-empty-layout>
+                </ng-template>
+            </div>
+
         </div>
         <div class="col-md-4">
             <div class="card">
@@ -94,33 +92,36 @@
                     </li>
                 </ul>
             </div>
-            
+
             <table class="table table-hover table-bordered mt-5">
                 <tbody>
+                    <tr>
+                        <td>Notification <b>{{notificatation}}</b></td>
+                    </tr>
                     <tr routerLink="/project/add">
                         <td><b>Add Project</b></td>
                     </tr>
                     <tr routerLink="/funding/add">
-                        <td><b>Add Funding</b></td>
-                    </tr>
-                    <tr>
-                        <td><b>Add Patent</b></td>
+                        <td><b>Add Received Funding</b></td>
                     </tr>
                     <tr routerLink="/publication/add">
                         <td><b>Add Publication</b></td>
                     </tr>
                     <tr>
-                        <td><b>Add MOU & Partnership</b></td>
-                    </tr>
-                    <tr>
                         <td><b>Add Conference</b></td>
                     </tr>
                     <tr>
+                        <td><b>Add MOU & Partnership</b></td>
+                    </tr>
+                    <tr>
                         <td><b>Add Consultancy</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Add Patent</b></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-   
+
 </div>

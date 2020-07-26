@@ -45,7 +45,8 @@ export class ProjectPageComponent implements OnInit, OnChanges {
   isAnyformInvalid:boolean = false;
   formValidityArray = Array(RD_CONSTANT.PROJECT_TILE_INDEX.TOTAL_SIZE).fill(false); 
 
-  constructor( private activatedRoute: ActivatedRoute, 
+  constructor( 
+    private activatedRoute: ActivatedRoute, 
     private service: ApiClientService, 
     private router:Router,
     private globalStore: GlobalStoreService) { }
@@ -100,24 +101,16 @@ export class ProjectPageComponent implements OnInit, OnChanges {
   }
 
   updateProjectWithCommit({commitMessage}){
-    const history = {commitMessage, userId:this.userId}
-    this.projectTitle = validateAndUpdate(this.titleTileRef.getFormData(), this.projectTitle );
-    this.projectSummary = validateAndUpdate(this.summaryTileRef.getFormData(), this.projectSummary );
-    this.keywords = validateAndUpdate(this.keywordsTileRef.getFormData(), this.keywords);
-    this.referenceLink = validateAndUpdate(this.referenceLinkTileRef.getFormData(), this.referenceLink);
-    this.projectContent = validateAndUpdate(this.contentTileRef.getFormData(), this.projectContent );
-   
-    this.status = validateAndUpdate(this.statusCardRef.getFormData(), this.status );
-    this.contributors = validateAndUpdate(this.contributorsCardRef.getFormData(), this.contributors );
-    
+    const history = {commitMessage, userId:this.userId};
+    const contributors = validateAndUpdate(this.contributorsCardRef.getFormData(), this.contributors );
     let updatedProject = {
-      projectTitle: this.projectTitle,
-      projectSummary: this.projectSummary ,
-      keywords:this.keywords,
-      referenceLink:this.referenceLink,
-      projectContent: this.projectContent,
-      status: this.status,
-      team: filterIdfromTeam(this.contributors),
+      projectTitle: validateAndUpdate(this.titleTileRef.getFormData(), this.projectTitle ),
+      projectSummary:  validateAndUpdate(this.summaryTileRef.getFormData(), this.projectSummary ) ,
+      keywords:validateAndUpdate(this.keywordsTileRef.getFormData(), this.keywords),
+      referenceLink:validateAndUpdate(this.referenceLinkTileRef.getFormData(), this.referenceLink),
+      projectContent: validateAndUpdate(this.contentTileRef.getFormData(), this.projectContent ),
+      status: validateAndUpdate(this.statusCardRef.getFormData(), this.status ),
+      team: filterIdfromTeam(contributors),
       history
     };
     

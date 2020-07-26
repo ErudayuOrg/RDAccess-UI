@@ -52,5 +52,4 @@ export class ProjectReferencesTileComponent implements OnChanges {
     const {referenceLink} = this.referenceLinkForm.value;
     return referenceLink;
   }
-
 }

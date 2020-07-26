@@ -85,12 +85,17 @@ input[type="password"]{
     font-weight: 700;
     letter-spacing: 3px;
 }
-
+label{
+    font-weight: 500;
+}
 .disc{
     font-weight: 500;
     margin-right: 5px;
 }
-
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important; 
+ }
 
 /*  remove  */
 
