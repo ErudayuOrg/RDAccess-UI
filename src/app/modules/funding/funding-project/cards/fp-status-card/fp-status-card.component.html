@@ -1,0 +1,58 @@
+<div class="card mb-1">
+    <div class="card-body" *ngIf="!isEditMode; else Editor" >
+        <h5>
+            <small>Status
+                <span class="float-right badge badge-pill badge-{{badge}} p-2">{{viewStatus}}</span>
+            </small>
+        </h5>
+    </div>
+    
+    <ng-template #Editor>
+        <div  *ngIf="!isReceivedFund">
+        <div class="card-header">Set status</div>
+        <div class="card-body">
+            <small class="text-muted" *ngIf="enableCheck">Set status after submission</small>
+            <div class="form-check">
+                <input 
+                    class="form-check-input mr-5"
+                    type="radio" 
+                    [formControl]="fundingProjectStatus" 
+                    id="review" 
+                    [attr.disabled]="enableCheck"
+                    value="05">
+                <label class="form-check-label" for="ongoing">Review</label>
+            </div>
+            <div class="form-check">
+                <input 
+                    class="form-check-input mr-5" 
+                    type="radio" 
+                    [formControl]="fundingProjectStatus" 
+                    id="shortlisted"
+                    value="06"
+                    [attr.disabled]="enableCheck">
+                <label class="form-check-label" for="complete">Shortlisted</label>
+            </div>
+            <div class="form-check">
+                <input 
+                    class="form-check-input mr-5" 
+                    type="radio" 
+                    [formControl]="fundingProjectStatus"
+                    [attr.disabled]="enableCheck"
+                    id="shortlisted"
+                    value="07">
+                <label class="form-check-label" for="complete">Rejected</label>
+            </div>
+            <div class="form-check">
+                <input 
+                    class="form-check-input mr-5" 
+                    type="radio" 
+                    [formControl]="fundingProjectStatus" 
+                    [attr.disabled]="enableCheck"
+                    id="shortlisted"
+                    value="08">
+                <label class="form-check-label" for="complete">Accepted</label>
+            </div>
+        </div>
+    </div>
+    </ng-template>
+</div>

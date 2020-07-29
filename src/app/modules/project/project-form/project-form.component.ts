@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl,Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 
 import{ RD_CONSTANT} from '../../../keys/constant';
 
-import{ getYesterdayDate,getCreatedDate,filterIdfromTeam } from '../../../utils/project.utils';
+import{ getYesterdayDate,getCreatedDate,filterUserId } from '../../../utils/project.utils';
 
 import { GlobalStoreService } from './../../../service/global-store.service';
 import { ApiClientService } from './../../../service/api-client.service';
@@ -32,7 +33,11 @@ export class ProjectFormComponent implements OnInit {
   contributorIds:any = [];
   successMessage:string;
   errorMessage:string;
-  constructor(private service:ApiClientService, private globalStore :GlobalStoreService) { }
+  constructor(
+    private service:ApiClientService,
+    private globalStore :GlobalStoreService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
     const {userId,userName} = this.globalStore.getGlobalStore();
@@ -79,14 +84,14 @@ export class ProjectFormComponent implements OnInit {
 
   createProject(){
     const {searchedContributorId, ...projectDetails } = this.project.value;
-    projectDetails.team = filterIdfromTeam(this.team);
+    projectDetails.team = filterUserId(this.team);
     projectDetails.projectDepartment =[projectDetails.projectDepartment];
     projectDetails.projectLab = [projectDetails.projectLab];
     projectDetails.createdAt = getCreatedDate(projectDetails.createdAt, projectDetails.isOldProject);
     this.service.createNewProject(projectDetails).subscribe( response =>{
       this.clearMessage();
-      this.successMessage = response.message;
       this.project.reset();
+      this.router.navigate([`/project/${response.projectId}/edit`]);
       this.team=[this.userIdName];
     },error=>{
       this.clearMessage();

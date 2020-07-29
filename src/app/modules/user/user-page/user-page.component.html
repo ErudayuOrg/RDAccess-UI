@@ -56,6 +56,34 @@
                 </ng-template>
             </div>
 
+            <h6 class="mt-5 mb-3">FUNDING DETAILS</h6>
+            <div class="card">
+                <div class="table-responsive" *ngIf="fundingProjects?.length; else Emptybox">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">S.No</th>
+                                <th scope="col">Name of Grant/Fund</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let fundingProject of fundingProjects; index as i"
+                                routerLink="/funding/{{fundingProject.isReceivedFund?'received':'applied'}}/{{fundingProject.fundingProjectId}}">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{fundingProject.nameOfGrant}}</td>
+                                <td>{{fundingProject.fundingType}}</td>
+                                <td>{{fundingProject.status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <ng-template #Emptybox>
+                    <app-empty-layout></app-empty-layout>
+                </ng-template>
+            </div>
+
         </div>
         <div class="col-md-4">
             <div class="card">
@@ -101,7 +129,7 @@
                     <tr routerLink="/project/add">
                         <td><b>Add Project</b></td>
                     </tr>
-                    <tr routerLink="/funding/add">
+                    <tr routerLink="/funding/received">
                         <td><b>Add Received Funding</b></td>
                     </tr>
                     <tr routerLink="/publication/add">
@@ -111,7 +139,7 @@
                         <td><b>Add Conference</b></td>
                     </tr>
                     <tr>
-                        <td><b>Add MOU & Partnership</b></td>
+                        <td><b>Add MOU & Collaboration</b></td>
                     </tr>
                     <tr>
                         <td><b>Add Consultancy</b></td>

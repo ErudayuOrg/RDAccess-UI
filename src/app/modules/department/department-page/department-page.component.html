@@ -6,8 +6,8 @@
 </nav>
 
 <div class="container">
-    <app-snapshot-tiles [snapshot] = "departmentSnapshot" > </app-snapshot-tiles>
     <div class="title">{{department?.departmentName}}</div>
+    <app-snapshot-tiles [snapshot] = "departmentSnapshot" > </app-snapshot-tiles>
     <div class="row" *ngIf="researches?.length; else Emptybox">
         <div *ngFor="let research of researches"  class="col-md-4">
                 <div class="card mb-5">

@@ -83,6 +83,7 @@ export class ApiClientService {
   }
 
   /*===============FUNDING================= */
+  
   getAllFundingsSummary():Observable<any>{
     return this.http.get<any>(`${this.host}/funding/all-summary`, getHeader());
   }
@@ -101,7 +102,24 @@ export class ApiClientService {
     .pipe( catchError(err => this.throwError(err)) );
   }
 
+  /*========FUNDING-PROJECT=======*/
+  getfundingProjectById(fundingProjectId:string):Observable<any>{
+    return this.http.get<any>(`${this.host}/funding/funding-project/detail/${fundingProjectId}`, getHeader());
+  }
+
+  addRecievedFundingProject(fundingProjectDetails:any):Observable<any>{
+    return this.http.post<any>(`${this.host}/funding/funding-project/received/create`, fundingProjectDetails, getHeader())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+
+  updateReceivedFundingProject(fundingProjectDetails:any, fundingProjectId:string):Observable<any>{
+    return this.http.put<any>(`${this.host}/funding/funding-project/received/update/${fundingProjectId}`, fundingProjectDetails, getHeader())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+  
+  
   /*===============USER================= */
+  
   getUserById(userId:string):Observable<any>{
     return this.http.get<any>(`${this.host}/user/profile/${userId}`, getHeader());
   }
@@ -117,6 +135,10 @@ export class ApiClientService {
 
   getPublicationsByUserId(userId:string):Observable<any>{
     return this.http.get<any>(`${this.host}/user/publications/${userId}`, getHeader());
+  }
+
+  getFundingProjectByUserId(userId:string):Observable<any>{
+    return this.http.get<any>(`${this.host}/user/funding-project/${userId}`, getHeader());
   }
   
   getMatchingUserId(userId:string):Observable<any>{

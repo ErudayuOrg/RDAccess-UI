@@ -1,0 +1,44 @@
+<div class="card">
+    <div class="card-header">{{isEditMode?'Add Co-Investigators':'Investigators'}}</div>
+    <form [formGroup]="coInvestigatorForm">
+        <div class="card-body">
+            <span #userId class="badge badge-pill badge-secondary p-1">
+                {{ investigator }}
+            </span>
+            <span class=" mr-2 mt-2" *ngFor="let coInvestigator of coInvestigators">
+                <span #userId class="badge badge-pill badge-light p-1">
+                    {{ coInvestigator }}
+                </span>
+            </span>
+            <div *ngIf="newlyAddedCoInvestigators">
+                <span class="mr-3 mt-2" formArrayName="newlyAddedCoInvestigators"
+                    *ngFor="let control of newlyAddedCoInvestigators.controls; let i = index">
+                    <span class="badge badge-pill badge-light c-pointer p-1">
+                        {{ control?.value }}
+                        <span class=" badge badge-dark badge-pill" (click)="deleteNewcoInvestigator(i)">X</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div *ngIf="isEditMode">
+            <input 
+                placeholder="Search Co-Investigator..." 
+                type="text" 
+                class="form-control"
+                autocomplete="off"
+                formControlName = "newCoInvestigator"
+                (keyup) = "getMatchingIds()"
+            />
+            <span *ngIf="coInvestigatorSearchList">
+                <li class="c-pointer list-group-item list-group-item-action list-group-item-dark"
+                    formArrayName="coInvestigatorSearchList"
+                    *ngFor="let control of coInvestigatorSearchList.controls; let i = index" 
+                    (click)="addNewCoInvestigator(i)"
+                >
+                {{control?.value}} 
+                </li>
+            </span>
+        </div>
+    </form>
+</div>

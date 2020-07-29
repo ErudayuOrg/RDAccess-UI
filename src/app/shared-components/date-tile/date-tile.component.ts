@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class DateTileComponent {
   @Input() showTile:boolean;
-  @Input() createdAt:string;
-  @Input() updatedAt:string;
+  @Input() createdAt:any;
+  @Input() updatedAt:any;
 }

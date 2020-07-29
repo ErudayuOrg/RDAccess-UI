@@ -1,0 +1,47 @@
+<div class="card border-secondary mb-1">
+    <div class="card-body" *ngIf="isSubmitted; else Pending">
+        <h5 class="card-title">Application Check</h5>
+        <div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" disabled>
+                <label class="form-check-label">
+                    Application filled/ uploaded
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" disabled>
+                <label class="form-check-label">
+                  HOD check
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" disabled>
+                <label class="form-check-label">
+                  Proposal check
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" disabled>
+                <label class="form-check-label">
+                  Technical check
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" disabled>
+                <label class="form-check-label">
+                  Principal check
+                </label>
+              </div>
+        </div>
+    </div>
+
+    <ng-template #Pending>
+        <div class="card-body">
+            <h5 class="card-title text-muted">Application Check</h5>
+            <p class="text-muted"> Will be available if Funding status become Applied</p>
+        </div>
+    </ng-template>
+
+</div>
+

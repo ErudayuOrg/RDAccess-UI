@@ -1,6 +1,6 @@
 <div class="card border-secondary mb-1" *ngIf="!isEditMode; else Editor">
     <div class="card-body">
-        <h5 class="card-title">Abstract</h5>
+        <h5 class="card-title">Details</h5>
         <div *ngFor="let content of projectContent">
             <h6>{{ content.subHeading }}</h6>
             <p class="card-text text-dark mb-4">{{  content.subContent }}</p>
@@ -11,7 +11,7 @@
 <ng-template #Editor>
     <div class="card border-secondary mt-1">
         <div class="card-body">
-            <h5 class="card-title">Abstract</h5>
+            <h5 class="card-title">Details</h5>
             <form [formGroup] ="projectContentForm">
                 <div id="subSectionBlock" formArrayName="subSection">
                     <div class="mb-3" *ngFor="let item of subSectionArray.controls; let i = index" [formGroupName] = "i">

@@ -4,6 +4,7 @@ import { GlobalStoreService } from './../../../service/global-store.service';
 import { ApiClientService } from '../../../service/api-client.service';
 import {getCreateProjectAccess} from '../../../utils/project.utils';
 
+import { RD_CONSTANT } from '../../../keys/constant'
 
 
 @Component({
@@ -14,6 +15,7 @@ import {getCreateProjectAccess} from '../../../utils/project.utils';
 export class UserPageComponent implements OnInit {
   projects:any;
   publications:any;
+  fundingProjects:any;
 
   userId:string;
   userName : string;
@@ -35,7 +37,7 @@ export class UserPageComponent implements OnInit {
       let allProjects = projects.map(
           project => ({"projectId" : project.projectId, 
                       "projectTitle" :project.projectTitle,
-                      "status" :project.status,
+                      "status" : RD_CONSTANT.PROJECT_STATUS_MAP[project.status],
                       "createdAt": project.createdAt
                     })
       );
@@ -54,6 +56,18 @@ export class UserPageComponent implements OnInit {
       this.publications = allPublications;
     })
     
+    this.service.getFundingProjectByUserId(this.userId).subscribe(fundingProjects =>{
+      let allFundingProjects = fundingProjects.map(
+        fundingProject => ({"fundingProjectId" : fundingProject.fundingProjectId, 
+                      "fundingType" :fundingProject.fundingType,
+                      "status" :  RD_CONSTANT.FUNDING_STATUS_MAP[fundingProject.status],
+                      "nameOfGrant": fundingProject.nameOfGrant,
+                      "isReceivedFund": fundingProject.isReceivedFund
+                    })
+      );
+      this.fundingProjects = allFundingProjects;
+    })
+
     this.createAccess = getCreateProjectAccess(userDesignationCode);
   }
 

@@ -6,7 +6,7 @@ import { GlobalStoreService } from './../../../service/global-store.service';
 
 import { RD_CONSTANT } from './../../../keys/constant';
 
-import {getEditAccess,validateAndUpdate,filterIdfromTeam}  from "../../../utils/project.utils";
+import {getEditAccess,validateAndUpdate,filterUserId}  from "../../../utils/project.utils";
 
 @Component({
   selector: 'app-project-page',
@@ -60,9 +60,11 @@ export class ProjectPageComponent implements OnInit, OnChanges {
       this.service.getProjectById(params.projectId).subscribe(project => {
         this.setViewContent(project);
         this.canEdit = getEditAccess(this.globalStore.getGlobalStore(), project);
+        this.editMode = this.canEdit && (params.edit === 'edit');
+        this.setNavigation(this.editMode);
         this.isloading = false;
       },error=>{
-        this.router.navigate(['/home']);
+        this.router.navigate(['/project']);
       })
     })
   }
@@ -82,12 +84,21 @@ export class ProjectPageComponent implements OnInit, OnChanges {
     this.contributors = project.team;
   }
 
+  setNavigation(edit){
+     if(edit) 
+      this.router.navigate([`/project/${this.project.projectId}/edit`]);
+     else 
+      this.router.navigate([`/project/${this.project.projectId}`]);
+  }
+
   onEditMode(){
     this.editMode = true;
+    this.setNavigation(this.editMode);
   }
 
   cancelUpdate(){
     this.editMode = false;
+    this.setNavigation(this.editMode);
   }
 
   clearMessages(){
@@ -110,7 +121,7 @@ export class ProjectPageComponent implements OnInit, OnChanges {
       referenceLink:validateAndUpdate(this.referenceLinkTileRef.getFormData(), this.referenceLink),
       projectContent: validateAndUpdate(this.contentTileRef.getFormData(), this.projectContent ),
       status: validateAndUpdate(this.statusCardRef.getFormData(), this.status ),
-      team: filterIdfromTeam(contributors),
+      team: filterUserId(contributors),
       history
     };
     
@@ -120,6 +131,7 @@ export class ProjectPageComponent implements OnInit, OnChanges {
         this.setViewContent(updatedProject.response);
         this.successMessage = updatedProject.message;
         this.editMode = false;
+        this.setNavigation(this.editMode);
       },error =>{
         this.clearMessages();
        this.errorMessage = error;

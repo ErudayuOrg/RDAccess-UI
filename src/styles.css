@@ -34,7 +34,10 @@ a{
     right: 6vw;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
     background-color: #1e4175 !important;
     color: #ffcc29 !important;
 }
@@ -53,7 +56,7 @@ a{
 	height: 0px;
 	overflow: hidden;
 	padding: 0px;
-    top: 60px;
+    top: 55px;
     background-color: #fdfdfd;
     transition: all 350ms;
 }

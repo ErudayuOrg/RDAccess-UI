@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormArray} from '@angular/forms';
+import { Router } from '@angular/router';
 
 import{ getTodayDate } from '../../../utils/project.utils';
 
@@ -10,6 +11,7 @@ import { ApiClientService } from 'src/app/service/api-client.service';
   templateUrl: './funding-form.component.html',
   styleUrls: ['./funding-form.component.css']
 })
+
 export class FundingFormComponent implements OnInit {
   fundingForm: FormGroup;
   todayDate: String = getTodayDate();
@@ -18,7 +20,9 @@ export class FundingFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: ApiClientService) { }
+    private service: ApiClientService,
+    private router:Router
+    ) { }
 
   ngOnInit(): void {
     this.fundingForm = this.fb.group({
@@ -75,12 +79,11 @@ export class FundingFormComponent implements OnInit {
   }
 
   createFunding(){
-    let fundingDetails = this.fundingForm.value
-    console.log( fundingDetails);
+    let fundingDetails = this.fundingForm.value;
     this.service.createNewFunding(fundingDetails).subscribe( response=>{
       this.clearMessage();
-      this.successMessage = response.message;
       this.fundingForm.reset();
+      this.router.navigate([`/funding/${response.fundingId}/edit`]);
     }, error=>{
       this.clearMessage();
       this.errorMessage = error;

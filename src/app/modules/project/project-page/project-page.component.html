@@ -1,7 +1,7 @@
 <app-loader [load]="isloading"></app-loader>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="home">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
         <li class="breadcrumb-item active">{{project?.projectTitle |  slice:0:30}}</li>
     </ol>
 </nav>
@@ -19,8 +19,8 @@
     </app-project-title-tile>
     <app-date-tile
         [showTile] = "!editMode"
-        [createdAt] = "project?.createdAt"
-        [updatedAt] = "project?.updatedAt">
+        [createdAt] = "{'title':'Started', 'date':project?.createdAt}"
+        [updatedAt] = "{'title':'Last updated', 'date':project?.updatedAt}">
     </app-date-tile>
     <div class="row">
         <div class="col-md-9">

@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: ':projectId',
     component: ProjectPageComponent
+  },
+  {
+    path: ':projectId/:edit',
+    component: ProjectPageComponent
   }
 ];
 

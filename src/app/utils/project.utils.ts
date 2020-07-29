@@ -17,7 +17,7 @@ const getRoleAccess = (userDesignationCode, userDepartmentId, projectDepartment)
 export const getEditAccess = (userDetail, projectDetail):boolean=>{
     const {userId,userDesignationCode,userDepartmentId} = userDetail;
     const {team,projectDepartment} = projectDetail;
-    const contributionAccess:boolean = getContributionAccess(userId,userDesignationCode,filterIdfromTeam(team)); 
+    const contributionAccess:boolean = getContributionAccess(userId,userDesignationCode,filterUserId(team)); 
     const roleAccess:boolean = getRoleAccess(userDesignationCode, userDepartmentId, projectDepartment);
     return contributionAccess || roleAccess;
 };
@@ -71,7 +71,7 @@ export const validateAndUpdate = (newData, OldData) =>{
     return newData? newData: OldData;
 }
 
-export const filterIdfromTeam = team =>{
+export const filterUserId = team =>{
     return team.map( user =>{
        return user.split('-')[0];
     })

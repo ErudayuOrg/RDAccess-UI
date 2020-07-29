@@ -2,7 +2,7 @@
     <div class="card-body" *ngIf="!isEditMode; else Editor" >
         <h5>
             <small>Status
-                <span class="float-right badge badge-pill {{badge}} p-2">{{status}}</span>
+                <span class="float-right badge badge-pill {{badge}} p-2">{{viewStatus}}</span>
             </small>
         </h5>
     </div>
@@ -11,12 +11,12 @@
         <div class="card-header">Set status</div>
         <div class="card-body">
             <div class="form-check">
-                <input class="form-check-input mr-5" type="radio" [formControl]="projectStatus" id="ongoing" value="Ongoing">
+                <input class="form-check-input mr-5" type="radio" [formControl]="projectStatus" id="ongoing" value="01">
                 <label class="form-check-label" for="ongoing">Ongoing</label>
             </div>
             <div class="form-check">
                 <input class="form-check-input mr-5" type="radio" [formControl]="projectStatus" id="complete"
-                    value="Completed">
+                    value="02">
                 <label class="form-check-label" for="complete">Completed</label>
             </div>
         </div>

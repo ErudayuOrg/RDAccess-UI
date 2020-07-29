@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, Output, EventEmitter, DoCheck } from '@angular/core';
 import { FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 
 import { RD_CONSTANT } from './../../../../keys/constant';
@@ -9,7 +9,7 @@ import { RD_CONSTANT } from './../../../../keys/constant';
   styleUrls: ['./project-keywords-tile.component.css']
 })
 
-export class ProjectKeywordsTileComponent implements OnChanges {
+export class ProjectKeywordsTileComponent implements OnChanges, DoCheck {
   @Input() keywords:any;   
   @Input() isEditMode:any; 
   @Output() isFormValid = new EventEmitter<any>();

@@ -11,8 +11,8 @@
 </nav>
 
 <div class="container">
-    <app-snapshot-tiles [snapshot] = "labSnapshot"> </app-snapshot-tiles>
     <div class="title">{{ research?.researchLabName }}</div>
+    <app-snapshot-tiles [snapshot] = "labSnapshot"> </app-snapshot-tiles>
     <div class="row" *ngIf="projects?.length; else Emptybox">
             <div class="col-md-12" *ngFor="let project of projects">
                 <div class="card border-secondary">

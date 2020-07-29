@@ -7,3 +7,9 @@ export const getFundingEditAccess = ({userDesignationCode}) => {
 export const isPastDate = date =>{
     return new Date(date) < new Date()? true: false;
 }
+
+export const getFundingProjectEditAccess= (userDetails,investigators) =>{
+    const {userDesignationCode ,userId} = userDetails;
+    return RD_CONSTANT.ROLE_WITH_EDIT_FUNDING_PROJECT.includes(userDesignationCode) ||
+            investigators.includes(userId);
+}
