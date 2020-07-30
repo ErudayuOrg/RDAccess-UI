@@ -30,7 +30,11 @@ export class ResearchPageComponent implements OnInit {
         this.department = departments.filter(dept => dept.departmentId === params.departmentId)[0];
         this.research = this.department.researchLab.filter(research => research.researchLabId === params.researchId)[0];
         this.service.getProjectsByLabId(params.researchId).subscribe( projects =>{
-          this.projects = projects;
+          this.projects = projects.map( project =>{
+            let {status,...other} = project;
+            status = RD_CONSTANT.PROJECT_STATUS_MAP[status];
+            return { status, ...other};
+          });
         })
       });
     });

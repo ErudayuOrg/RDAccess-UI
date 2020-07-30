@@ -35,16 +35,26 @@
                 #keywordsTileRef>
             </app-fp-keywords-tile>
             
-            <app-fp-check-tile
-                [isEditMode] = "editMode"
-                [status]= "status">
-            </app-fp-check-tile>
             <app-fp-submit-tile
+                [status]= "status"
+                [fundingProjectId]="fundingProject?.fundingProjectId"
+                [documents] = "documents"
+                (emitStatus)="setViewContent($event)"
+                >
+            </app-fp-submit-tile>
+            
+            <app-fp-check-tile
+                [applicationChecks] = "applicationChecks"
                 [isEditMode] = "editMode"
                 [status]= "status"
-            >
+                #checkTileRef>
+            </app-fp-check-tile>
+            
+            <app-fp-ack-tile
+                [status]= "status"
+                [documents] = "documents">
+            </app-fp-ack-tile>
 
-            </app-fp-submit-tile>
             <app-fp-amount-tile
                 [fundingAmount] = "fundingAmount"
                 [isEditMode] = "editMode"
@@ -66,7 +76,7 @@
                 [status] = "status"
                 [isReceivedFund] = "isReceivedFund"
                 [isEditMode] = "editMode"
-                
+                #statusCardRef>
                 >
             </app-fp-status-card>
             <app-fp-investigator-card

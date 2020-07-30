@@ -7,3 +7,18 @@ export const getHeader = ():any=>{
     })
     return {headers};
 }
+
+export const getHeaderForUpload = ():any =>{
+    let headers = new HttpHeaders({
+        'Authorization': "Bearer " + localStorage.getItem('TOKEN')
+    })
+    return {headers};
+}
+
+export const getHeaderForDownload = ():any =>{
+    let headers = new HttpHeaders({
+        'content-type':'application/json',
+        'Authorization': "Bearer " + localStorage.getItem('TOKEN'),
+    })
+    return {'responseType':"blob",headers};
+}

@@ -25,6 +25,7 @@ import { AppliedFpDetailsPageComponent } from './funding-project/applied/applied
 import { ApplyFundingModalComponent } from './funding-project/applied/apply-funding-modal/apply-funding-modal.component';
 import { FpCheckTileComponent } from './funding-project/tiles/fp-check-tile/fp-check-tile.component';
 import { FpSubmitTileComponent } from './funding-project/tiles/fp-submit-tile/fp-submit-tile.component';
+import { FpAckTileComponent } from './funding-project/tiles/fp-ack-tile/fp-ack-tile.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FpSubmitTileComponent } from './funding-project/tiles/fp-submit-tile/fp
     ApplyFundingModalComponent,
     FpCheckTileComponent,
     FpSubmitTileComponent,
+    FpAckTileComponent,
   ],
   imports: [
     CommonModule,

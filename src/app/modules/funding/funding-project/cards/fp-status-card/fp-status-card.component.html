@@ -11,7 +11,7 @@
         <div  *ngIf="!isReceivedFund">
         <div class="card-header">Set status</div>
         <div class="card-body">
-            <small class="text-muted" *ngIf="enableCheck">Set status after submission</small>
+            <small class="text-muted" *ngIf="enableCheck">Set status after submitting Acknowledgement</small>
             <div class="form-check">
                 <input 
                     class="form-check-input mr-5"
@@ -38,7 +38,7 @@
                     type="radio" 
                     [formControl]="fundingProjectStatus"
                     [attr.disabled]="enableCheck"
-                    id="shortlisted"
+                    id="rejected"
                     value="07">
                 <label class="form-check-label" for="complete">Rejected</label>
             </div>
@@ -48,7 +48,7 @@
                     type="radio" 
                     [formControl]="fundingProjectStatus" 
                     [attr.disabled]="enableCheck"
-                    id="shortlisted"
+                    id="accepted"
                     value="08">
                 <label class="form-check-label" for="complete">Accepted</label>
             </div>

@@ -5,17 +5,17 @@ DESIGNATION : [
   { userDesignationCode: 'PROFR', userDesignation: 'Teaching staff' },
   { userDesignationCode: 'RESER', userDesignation: 'Non-Teaching staff' },
   { userDesignationCode: 'STUDT', userDesignation: 'Student' },
-  { userDesignationCode: 'GUEST', userDesignation: 'Guest' }
+  { userDesignationCode: 'MNGMT', userDesignation: 'Management' }
 ],
-ROLE_WITH_NO_EDIT : ['STUD','GUEST'],
+ROLE_WITH_NO_EDIT : ['STUD','MNGMT'],
 ROLE_WITH_EDIT : ['HOD'],
-ROLE_WITH_NO_CREATE : ['STUD','ADMIN','GUEST'],
-ROLE_WITH_NO_PROFILE : ['GUEST','ADMIN'],
+ROLE_WITH_NO_CREATE : ['STUD','ADMIN','MNGMT'],
+ROLE_WITH_NO_PROFILE : ['MNGMT','ADMIN'],
 ROLE_WITH_ADMIN_ACCESS : ['ADMIN'],
-ROLE_WITH_NO_DEPARTMENT : ['ADMIN','GUEST'],
+ROLE_WITH_NO_DEPARTMENT : ['ADMIN','MNGMT'],
 ROLE_WITH_EDIT_FUNDING:['ADMIN'],
 ROLE_WITH_EDIT_FUNDING_PROJECT:['ADMIN'],
-
+ROLE_WITH_EDIT_APPLIED_FUNDING_PROJECT:['ADMIN','HOD','MNGMT'],
 MAX_CONTIBUTOR_PER_PROJECT: 5,
 
 PROJECT_STATUS_CODE :{
@@ -29,7 +29,7 @@ PROJECT_STATUS_MAP :{
 
 FUNDING_STATUS_CODE :{
   STARTED: '01',
-  APPLIED:'02',
+  FILLED:'02',
   CHECKED:'03',
   SUBMITTED:'04',
   REVIEW: '05',
@@ -39,7 +39,7 @@ FUNDING_STATUS_CODE :{
 },
 FUNDING_STATUS_MAP :{
   '01': 'Started',
-  '02': 'Applied',
+  '02': 'Filled',
   '03': 'Checked',
   '04': 'Submitted',
   '05': 'Review',

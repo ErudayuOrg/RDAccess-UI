@@ -66,8 +66,9 @@ export class FpInvestigatorCardComponent implements OnChanges {
   }
 
   getFormData(){
+    this.coInvestigators = this.coInvestigators ?this.coInvestigators:[];
     const {newlyAddedCoInvestigators} = this.coInvestigatorForm.value;
-    return [...this.coInvestigators,...newlyAddedCoInvestigators];
+    return { investigator :this.investigator, coInvestigator:[...this.coInvestigators ,...newlyAddedCoInvestigators]};
   }
 
 }

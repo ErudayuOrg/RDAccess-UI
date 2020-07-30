@@ -33,6 +33,8 @@ export class ProjectPageComponent implements OnInit, OnChanges {
   isloading: boolean;
   
   project:any;
+  fundingProjects:any;
+
   projectTitle: string;
   projectContent: any = [];
   projectSummary: string;
@@ -65,7 +67,11 @@ export class ProjectPageComponent implements OnInit, OnChanges {
         this.isloading = false;
       },error=>{
         this.router.navigate(['/project']);
-      })
+      });
+
+      this.service.getFundingsByProjectId(params.projectId).subscribe( fundingProjects =>{
+        this.fundingProjects = fundingProjects;
+      });
     })
   }
 

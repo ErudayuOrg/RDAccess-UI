@@ -92,7 +92,8 @@ export class ApplyFundingModalComponent implements OnInit {
       project:appliedFP.project,
       isReceivedFund:false,
       fundingType: this.fundingType,
-      appliedFundingId: this.fundingId
+      appliedFundingId: this.fundingId,
+      applicationChecks:{filled:false,hod:false,proposal:false,technical:false,principal:false}
     };
     console.log(fundingProjectDetails);
     //should be applyfornewfunding check if already applied for same project

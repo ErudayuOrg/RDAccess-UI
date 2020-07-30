@@ -18,6 +18,9 @@
                 <div class="card border-secondary">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
+                            <span routerLink="/project/{{project.projectId}}" class="btn btn-primary btn-sm float-right">
+                                View details
+                            </span>
                                 <h5 class="card-title" >
                                     <a routerLink="/project/{{project.projectId}}">
                                         {{ project.projectTitle }}
@@ -30,17 +33,27 @@
                             </p>
                         </li>
                         <li class="list-group-item">
-                            <h6 class="card-text text-muted">Contributors</h6>
-                            <span class=" pr-3" *ngFor="let member of project.team">
-                                <span 
-                                    #userId
-                                    class="badge badge-pill badge-secondary c-pointer" 
-                                    (click)="showUserOverview(userId.innerHTML)"
-                                    data-toggle="modal" 
-                                    data-target="#userOverviewModal">
-                                        {{ member }}
-                                </span>
-                            </span>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="card-text text-muted">Contributors</h6>
+                                    <span class=" pr-3" *ngFor="let member of project.team">
+                                        <span 
+                                            #userId
+                                            class="badge badge-pill badge-secondary c-pointer" 
+                                            (click)="showUserOverview(userId.innerHTML)"
+                                            data-toggle="modal" 
+                                            data-target="#userOverviewModal">
+                                                {{ member }}
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="float-right">
+                                        <h6 class="card-text text-muted">Status</h6>
+                                        <h6> {{ project.status }}</h6>
+                                    </div>  
+                                </div>
+                            </div>
                         </li>
                         <p class="list-group-item card-text">
                             <small class="text-muted">Started {{ project.createdAt | date:'mediumDate'}}</small>

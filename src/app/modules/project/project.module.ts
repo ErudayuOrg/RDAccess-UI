@@ -18,6 +18,7 @@ import { ProjectTitleTileComponent } from './tiles/project-title-tile/project-ti
 import { ProjectHistoryModalComponent } from './modals/project-history-modal/project-history-modal.component';
 import { ProjectUpdateModalComponent } from './modals/project-update-modal/project-update-modal.component';
 import { AllProjectSummaryComponent } from './all-project-summary/all-project-summary.component';
+import { ProjectFundingCardComponent } from './cards/project-funding-card/project-funding-card.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AllProjectSummaryComponent } from './all-project-summary/all-project-su
     ProjectTitleTileComponent,
     ProjectHistoryModalComponent,
     ProjectUpdateModalComponent,
-    AllProjectSummaryComponent
+    AllProjectSummaryComponent,
+    ProjectFundingCardComponent
   ],
   imports: [
     CommonModule,

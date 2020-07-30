@@ -27,4 +27,7 @@ export class FpStatusCardComponent implements OnChanges {
     this.viewStatus = RD_CONSTANT.FUNDING_STATUS_MAP[this.status];
   }
 
+  getFormData(){
+    return this.fundingProjectStatus.value;
+  }
 }

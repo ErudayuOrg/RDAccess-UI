@@ -56,7 +56,7 @@ a{
 	height: 0px;
 	overflow: hidden;
 	padding: 0px;
-    top: 55px;
+    top: 60px;
     background-color: #fdfdfd;
     transition: all 350ms;
 }
@@ -64,7 +64,7 @@ a{
 {
 	display: block;
     height: inherit;
-    top: 35px;
+    top: 33px;
 }
 
 .dropdown-item{
@@ -93,6 +93,12 @@ label{
 }
 .disc{
     font-weight: 500;
+    margin-right: 5px;
+}
+
+.check{
+    font-weight: 1000;
+    font-size: 20px;
     margin-right: 5px;
 }
 .nopadding {

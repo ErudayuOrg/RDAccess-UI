@@ -7,7 +7,7 @@ import {RD_CONSTANT} from '../../../../../keys/constant';
 import { ApiClientService } from '../../../../../service/api-client.service';
 import { GlobalStoreService } from '../../../../../service/global-store.service';
 
-import {getFundingProjectEditAccess}  from "../../../../../utils/funding.utils";
+import {getAppliedFundingProjectEditAccess}  from "../../../../../utils/funding.utils";
 import {filterUserId} from "../../../../../utils/project.utils";
 import {validateAndUpdate}  from "../../../../../utils/project.utils";
 
@@ -19,10 +19,11 @@ import {validateAndUpdate}  from "../../../../../utils/project.utils";
 export class AppliedFpDetailsPageComponent implements OnInit {
   @ViewChild('summaryTileRef') summaryTileRef;
   @ViewChild('keywordsTileRef') keywordsTileRef;
+  @ViewChild('checkTileRef') checkTileRef;
   @ViewChild('amountTileRef') amountTileRef;
   @ViewChild('datesTileRef') datesTileRef;
   @ViewChild('investigatorCardRef') investigatorCardRef;
-
+  @ViewChild('statusCardRef') statusCardRef;
   userId: string;
 
   canEdit:boolean;
@@ -51,6 +52,7 @@ export class AppliedFpDetailsPageComponent implements OnInit {
   history:any;
   status:any;
   applicationChecks:any;
+  documents:any;
 
   isAnyformInvalid:boolean = false;
   formValidityArray = Array(RD_CONSTANT.RECEIVED_FP_TILE_INDEX.TOTAL_SIZE).fill(false); 
@@ -70,11 +72,10 @@ export class AppliedFpDetailsPageComponent implements OnInit {
       this.isloading = true;
       this.service.getfundingProjectById(params.fundingProjectId).subscribe(fundingProject => {
           this.setViewContent(fundingProject);
-          this.canEdit = getFundingProjectEditAccess(this.globalStore.getGlobalStore(), filterUserId([fundingProject.investigator]));
+          this.canEdit = getAppliedFundingProjectEditAccess(this.globalStore.getGlobalStore(), filterUserId([fundingProject.investigator]));
           this.editMode = this.canEdit && (params.edit === 'edit');
           this.setNavigation(this.editMode);
           this.isloading = false;
-          console.log(fundingProject);
         },
         error=>{
           this.router.navigate(['/funding']);
@@ -102,7 +103,8 @@ export class AppliedFpDetailsPageComponent implements OnInit {
 
     this.history = fundingProject.history;
     this.status = fundingProject.status;
-
+    this.documents = fundingProject.documents;
+    this.applicationChecks = fundingProject.applicationChecks;
    }
 
    setNavigation(edit){
@@ -131,17 +133,28 @@ export class AppliedFpDetailsPageComponent implements OnInit {
     this.formValidityArray[event.index] = event.value;
     this.isAnyformInvalid = this.formValidityArray.includes(true);
   }
+  setStatus(event){
+    console.log(event);
+    this.status = event;
+  }
 
   updateWithCommit({commitMessage}){
 
     const history = {commitMessage, userId:this.userId};
     const {investigator, coInvestigator} = this.investigatorCardRef.getFormData();
+    const principalCheckStatus = this.checkTileRef.getFormData()?.status;
+    const actualstatus = this.statusCardRef.getFormData();
+    if(principalCheckStatus){
+      this.status = actualstatus > principalCheckStatus?actualstatus:principalCheckStatus;
+    }
+    else{
+      this.status = actualstatus;
+    }
     let updatedReceivedFP = {
       nameOfGrant:this.nameOfGrant,
       fundingOrganisation:this.fundingOrganisation,
       fundingType:this.fundingType,
       project:this.project,
-
       summary: validateAndUpdate(this.summaryTileRef.getFormData(), this.summary ),
       keywords: validateAndUpdate(this.keywordsTileRef.getFormData(), this.keywords ),
 
@@ -151,8 +164,9 @@ export class AppliedFpDetailsPageComponent implements OnInit {
       investigator: filterUserId([validateAndUpdate(investigator, this.investigator )])[0], 
       coInvestigator: filterUserId(validateAndUpdate(coInvestigator, this.coInvestigator)), 
       
+      applicationChecks : validateAndUpdate(this.checkTileRef.getFormData()?.applicationChecks, this.applicationChecks ),
       isReceivedFund: this.isReceivedFund,
-      status:this.status,
+      status: this.status,
       history
     };
 

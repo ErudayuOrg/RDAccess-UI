@@ -1,0 +1,24 @@
+<div class="card border-secondary mb-1">
+    <div class="card-body" *ngIf="isChecked; else Pending">
+        <h5 class="card-title">Upload Acknowledgement</h5>
+        <div *ngIf="!isSubmitted; else ReadyToCheck">
+            <input type="file" id="ackdoc" name="filename">
+            <div>
+                <small class="text-muted"> Please upload acknowledgement after submitting the application in the funding website</small>
+            </div>
+        </div>
+        <ng-template #ReadyToCheck>
+            <div>{{'Ack download link'}}</div>
+            <div>
+                <small class="text-muted"> Acknowledgement has uploaded</small>
+            </div>
+        </ng-template>
+    </div>
+    <ng-template #Pending>
+        <div class="card-body">
+            <h5 class="card-title text-muted">Upload Acknowledgement</h5>
+            <p class="text-muted"> Will be available if all checks are successful</p>
+        </div>
+    </ng-template>
+</div>
+

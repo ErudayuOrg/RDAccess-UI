@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import {getHeader} from '../utils/auth.utils';
+import {getHeader, getHeaderForUpload, getHeaderForDownload} from '../utils/auth.utils';
 
 @Injectable({
   providedIn: 'root'
@@ -107,16 +107,28 @@ export class ApiClientService {
     return this.http.get<any>(`${this.host}/funding/funding-project/detail/${fundingProjectId}`, getHeader());
   }
 
+  getFundingsByProjectId(projectId:string):Observable<any>{
+    return this.http.get<any>(`${this.host}/funding/funding-project/project/${projectId}`, getHeader());
+  }
+
   addRecievedFundingProject(fundingProjectDetails:any):Observable<any>{
-    return this.http.post<any>(`${this.host}/funding/funding-project/received/create`, fundingProjectDetails, getHeader())
+    return this.http.post<any>(`${this.host}/funding/funding-project/create`, fundingProjectDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) );
   }
 
   updateReceivedFundingProject(fundingProjectDetails:any, fundingProjectId:string):Observable<any>{
-    return this.http.put<any>(`${this.host}/funding/funding-project/received/update/${fundingProjectId}`, fundingProjectDetails, getHeader())
+    return this.http.put<any>(`${this.host}/funding/funding-project/update/${fundingProjectId}`, fundingProjectDetails, getHeader())
     .pipe( catchError(err => this.throwError(err)) );
   }
   
+  uploadFilledApplication(fileAndStatus:any, fundingProjectId:string):Observable<any>{
+    return this.http.put<any>(`${this.host}/funding/funding-project/filled-uplaod/${fundingProjectId}`, fileAndStatus, getHeaderForUpload())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+  downloadFilledApplication(path:any):Observable<any>{
+    return this.http.post<any>(`${this.host}/funding/funding-project/filled-download`,path, getHeaderForDownload())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
   
   /*===============USER================= */
   
