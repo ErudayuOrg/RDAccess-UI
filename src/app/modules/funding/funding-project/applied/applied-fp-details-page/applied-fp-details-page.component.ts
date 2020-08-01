@@ -133,11 +133,7 @@ export class AppliedFpDetailsPageComponent implements OnInit {
     this.formValidityArray[event.index] = event.value;
     this.isAnyformInvalid = this.formValidityArray.includes(true);
   }
-  setStatus(event){
-    console.log(event);
-    this.status = event;
-  }
-
+  
   updateWithCommit({commitMessage}){
 
     const history = {commitMessage, userId:this.userId};

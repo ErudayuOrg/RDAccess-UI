@@ -95,8 +95,7 @@ export class ApplyFundingModalComponent implements OnInit {
       appliedFundingId: this.fundingId,
       applicationChecks:{filled:false,hod:false,proposal:false,technical:false,principal:false}
     };
-    console.log(fundingProjectDetails);
-    //should be applyfornewfunding check if already applied for same project
+    
     this.service.addRecievedFundingProject(fundingProjectDetails).subscribe( response =>{
       this.clearMessage();
       this.applyFundingForm.reset();

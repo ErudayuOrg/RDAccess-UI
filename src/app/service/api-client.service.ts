@@ -121,12 +121,18 @@ export class ApiClientService {
     .pipe( catchError(err => this.throwError(err)) );
   }
   
-  uploadFilledApplication(fileAndStatus:any, fundingProjectId:string):Observable<any>{
-    return this.http.put<any>(`${this.host}/funding/funding-project/filled-uplaod/${fundingProjectId}`, fileAndStatus, getHeaderForUpload())
+  uploadFilledApplication(formData:any, fundingProjectId:string):Observable<any>{
+    return this.http.put<any>(`${this.host}/funding/funding-project/filled-uplaod/${fundingProjectId}`, formData, getHeaderForUpload())
     .pipe( catchError(err => this.throwError(err)) );
   }
-  downloadFilledApplication(path:any):Observable<any>{
-    return this.http.post<any>(`${this.host}/funding/funding-project/filled-download`,path, getHeaderForDownload())
+
+  uploadFpAck(formData:any, fundingProjectId:string):Observable<any>{
+    return this.http.put<any>(`${this.host}/funding/funding-project/ack-uplaod/${fundingProjectId}`, formData, getHeaderForUpload())
+    .pipe( catchError(err => this.throwError(err)) );
+  }
+  
+  downloadFundingProjectDoc(path:any):Observable<any>{
+    return this.http.post<any>(`${this.host}/funding/funding-project/download`,path, getHeaderForDownload())
     .pipe( catchError(err => this.throwError(err)) );
   }
   

@@ -46,7 +46,6 @@ export class FpSubmitTileComponent implements OnChanges {
     const formData = new FormData();
     formData.append('file', this.filledDocument);
     this.service.uploadFilledApplication(formData, this.fundingProjectId).subscribe(fundingProject=>{
-      console.log(fundingProject.response);
       this.setView(fundingProject.response.status,fundingProject.response.documents);
       this.emitStatus.next(fundingProject.response);
     });
@@ -54,7 +53,7 @@ export class FpSubmitTileComponent implements OnChanges {
   
   download(){
     const payload = {path :this.downloadableDocLink, fileName:this.downloadableDocName}
-    this.service.downloadFilledApplication(payload).subscribe(blob=>{
+    this.service.downloadFundingProjectDoc(payload).subscribe(blob=>{
       saveAs(blob);
     });
   }

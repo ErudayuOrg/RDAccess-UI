@@ -17,7 +17,6 @@ export class AllProjectSummaryComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getAllProjectsSummary().subscribe( projectsSummary =>{
-      console.log(projectsSummary);
       this.projects = projectsSummary.map( project =>{
         let {status,...other} = project;
         status = RD_CONSTANT.PROJECT_STATUS_MAP[status];

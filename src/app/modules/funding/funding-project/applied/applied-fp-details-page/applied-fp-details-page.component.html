@@ -52,7 +52,9 @@
             
             <app-fp-ack-tile
                 [status]= "status"
-                [documents] = "documents">
+                [fundingProjectId]="fundingProject?.fundingProjectId"
+                [documents] = "documents"
+                (emitStatus)="setViewContent($event)">
             </app-fp-ack-tile>
 
             <app-fp-amount-tile

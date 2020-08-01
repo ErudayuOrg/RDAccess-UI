@@ -28,7 +28,6 @@ export class FpCheckTileComponent implements OnChanges {
  
   ngOnChanges(): void {
     const { userDesignationCode } = this.globalStore.getGlobalStore();
-    console.log(this.applicationChecks);
     this.checkform = this.fb.group({
       filled:[this.applicationChecks?.filled],
       hod:[this.applicationChecks?.hod],

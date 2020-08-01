@@ -40,7 +40,6 @@ export class PasswordFormComponent implements OnInit {
         this.passwordUpdateForm.reset();
       },
       error=>{
-        console.log(error);
         this.clearMessage();
         this.errorMessage = error;
       })

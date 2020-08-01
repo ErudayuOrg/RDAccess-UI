@@ -75,7 +75,6 @@ export class ReceivedFpDetailsPageComponent implements OnInit {
           this.editMode = this.canEdit && (params.edit === 'edit');
           this.setNavigation(this.editMode);
           this.isloading = false;
-          console.log(fundingProject);
         },
         error=>{
           this.router.navigate(['/funding']);
